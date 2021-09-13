@@ -1,10 +1,25 @@
 <template>
+<div id="#app">
   <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <Banner />
+    <router-link to="/"><i class="fas fa-house-user"></i> Home</router-link> |
+    <router-link to="/about">About</router-link> |
+    <router-link to="/login">Connexion</router-link>
   </div>
   <router-view/>
+</div>
 </template>
+
+<script>
+import Banner from '@/components/Banner.vue'
+
+export default {
+  components: {
+    Banner
+  }
+}
+</script>
+
 
 <style lang="scss">
 #app {
@@ -16,7 +31,7 @@
 }
 
 #nav {
-  padding: 30px;
+  margin-bottom: 10px;
 
   a {
     font-weight: bold;
