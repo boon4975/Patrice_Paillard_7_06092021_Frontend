@@ -1,18 +1,16 @@
 <template>
-<form action="">
-    <p>Formulaire de connexion</p>
-    <div class="form-group">
-        <label for="prenom">Prénom</label>
-        <input type="text" name="" id="">
-    </div>
-    <div class="form-group">
-        <button class="btn btn-secondary">Appuyer</button>
-    </div>
-</form>
+<div><SignUp /></div>
+
 </template>
 
 <script>
+
+import SignUp from '../components/SignUp.vue';
+
 export default {
     name: 'Login',
+    components: {
+        SignUp
+    }
 }
 </script>
