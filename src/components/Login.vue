@@ -1,20 +1,7 @@
 <template>
-<div id="signUp">
-    <h1>SignUp</h1>
-    <div class="register w-100">
-        <input type="text" placeholder="pseudo" v-model="pseudo" title="Votre Pseudo : 4 lettres et/ou chiffres minimum" class="form-control">
-        <input type="text" placeholder="email" v-model="email" title="Votre email" class="form-control">
-        <input type="password" placeholder="password" v-model="password" title="mini 8 caractères + 1 Maj + 1 min + 1 caractères spécial" class="form-control">
-        <input type="password" placeholder="confirm password" v-model="passwordConfirm" class="form-control">
-        <button class="btn btn-secondary" @click="signUp()">Sign Up</button>
-        <div class="register__err">{{ msgerr }}</div>
-    </div>
-</div>
-<div id="login" class="d-none">
+<div id="login">
     <h1>Login</h1>
-    <div class="register w-100">
-        <input type="text" placeholder="pseudo" v-model="pseudo" class="form-control">
-        ou
+    <div class="login w-100">
         <input type="text" placeholder="email" v-model="email" class="form-control">
         <input type="password" placeholder="password" v-model="password" class="form-control">
         <button class="btn btn-secondary" @click="login()">Log In</button>
@@ -26,23 +13,20 @@
 <script>
 import axios from 'axios'
 export default {
-    name: 'SignUp',
+    name: 'login',
     data(){
         return {
             email: '',
-            pseudo: '',
             password: '',
-            passwordConfirm: '',
             msgerr:''
         }
     },
     methods: {
-        async signUp(){
-            if(this.password === this.passwordConfirm){
-                let result = await axios.post('http://localhost:3000/api/auth/signup',{
+        async login(){
+            
+                let result = await axios.post('http://localhost:3000/api/auth/login',{
                     email:this.email,
-                    password:this.password,
-                    pseudo:this.pseudo
+                    password:this.password
                 });
                 if(result.status == 201){
                     try{
@@ -50,18 +34,17 @@ export default {
                         this.$router.push({name:'Home'})
                     }
                     catch(e) {
-                        console.log(e.message);
+                        console.log(e);
                     } 
                 }else if(result.status == 202){
                     this.msgerr = result.data;
                 }else{
-                    this.msgerr = result.data.message;
+                    this.msgerr = 'erreur serveur';
                 }
-            }else{
-                this.msgerr = 'les mots de passe ne sont pas identiques'
-            }
+            
         }
-    }
+    },
+    
 }
 </script>
 
@@ -69,7 +52,7 @@ export default {
 h1 {
     margin: 10px 0;
 }
-.register {
+.login {
     margin-top: 20px;
     & input {
         border: 1px solid skyblue;
