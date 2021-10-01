@@ -1,30 +1,27 @@
 <template>
-<div id="#app">
-  <div id="nav">
-    <Banner />
-    <NavMenu />
-  </div>             
-  <router-view/>
-</div>
+  <div id="#app">
+    <div id="nav">
+      <Banner />
+    <router-view />
+    </div>
+  </div>
 </template>
 
 <script>
-import Banner from '@/components/Banner.vue'
-import NavMenu from '@/components/NavMenu.vue'
+import Banner from "@/components/Banner.vue";
 
 export default {
   components: {
     Banner,
-    NavMenu
-  }
-}
+  },
+};
 </script>
 
 
 <style lang="scss">
-$primary : #A8ECFF;
-$secondary : #4624FD;
-$tertiary: #15D310;
+$primary: #a8ecff;
+$secondary: #4624fd;
+$tertiary: #15d310;
 $width_menu: 100px;
 $translate-nav: 300px;
 $duration_dropdown: 1000ms;
@@ -46,6 +43,7 @@ body {
 #nav {
   a {
     font-weight: bold;
+    color: #4624FD;
     text-decoration: none;
     padding: 0 10px;
     &.router-link-exact-active {
@@ -53,6 +51,31 @@ body {
     }
   }
 }
-
-
+//composants de connexion
+h1 {
+  margin: 10px 0;
+}
+.register,
+.login {
+  margin-top: 20px;
+  & input {
+    border: 1px solid skyblue;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-left: 20px;
+    width: 300px;
+    height: 40px;
+    display: block;
+  }
+  & button {
+    width: 300px;
+    height: 35px;
+    cursor: pointer;
+  }
+  &__err {
+    color: red;
+    margin-top: 20px;
+  }
+}
 </style>

@@ -1,19 +1,42 @@
 <template>
   <div class="home">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <NavMenu />
+    <Post />
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-
-import HelloWorld from '@/components/HelloWorld.vue'
+//import {mapState} from 'vuex'
+import NavMenu from '@/components/NavMenu.vue'
+import Post from '@/components/Post.vue'
+import {mapState} from 'vuex'
 
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    NavMenu,
+    Post
+  },
+  computed: {
+        ...mapState([
+            'userId',
+            'moderator',
+            'pseudo'
+            ])
+  },
+  methods:{
+    async getUserInfo(){
+      await this.$store.dispatch('getUserInfo')
+      if(this.userId == 'none'){
+        this.$router.push({name:'Login'})
+      }
+    }
+  },
+  beforeMount(){
+    this.getUserInfo()
   }
 }
+
 </script>

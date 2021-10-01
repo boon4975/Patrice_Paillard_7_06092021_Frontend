@@ -1,32 +1,27 @@
 <template>
 <div id="signUp">
-    <h1>SignUp</h1>
+    <h1>Création de compte</h1>
     <div class="register w-100">
         <input type="text" placeholder="pseudo" v-model="pseudo" title="Votre Pseudo : 4 lettres et/ou chiffres minimum" class="form-control">
         <input type="text" placeholder="email" v-model="email" title="Votre email" class="form-control">
-        <input type="password" placeholder="password" v-model="password" title="mini 8 caractères + 1 Maj + 1 min + 1 caractères spécial" class="form-control">
-        <input type="password" placeholder="confirm password" v-model="passwordConfirm" class="form-control">
-        <button class="btn btn-secondary" @click="signUp()">Sign Up</button>
+        <input type="password" placeholder="mot de passe" v-model="password" title="mini 8 caractères + 1 Maj + 1 min + 1 caractères spécial" class="form-control">
+        <input type="password" placeholder="confirmez le mot de passe" v-model="passwordConfirm" class="form-control">
+        <button class="btn btn-secondary" @click="signUp()">S'enregistrer</button>
         <div class="register__err">{{ msgerr }}</div>
-    </div>
-</div>
-<div id="login" class="d-none">
-    <h1>Login</h1>
-    <div class="register w-100">
-        <input type="text" placeholder="pseudo" v-model="pseudo" class="form-control">
-        ou
-        <input type="text" placeholder="email" v-model="email" class="form-control">
-        <input type="password" placeholder="password" v-model="password" class="form-control">
-        <button class="btn btn-secondary" @click="login()">Log In</button>
-        <div class="login__err">{{ msgerr }}</div>
+        <router-link to='/login'><p>Se connecter</p></router-link>
+        
     </div>
 </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import env from '../env';
 export default {
     name: 'SignUp',
+    components: {
+        
+    },
     data(){
         return {
             email: '',
@@ -39,7 +34,7 @@ export default {
     methods: {
         async signUp(){
             if(this.password === this.passwordConfirm){
-                let result = await axios.post('http://localhost:3000/api/auth/signup',{
+                let result = await axios.post(`http://${env.host}:${env.port}/api/auth/signup`,{
                     email:this.email,
                     password:this.password,
                     pseudo:this.pseudo
@@ -66,29 +61,5 @@ export default {
 </script>
 
 <style scoped lang="scss">
-h1 {
-    margin: 10px 0;
-}
-.register {
-    margin-top: 20px;
-    & input {
-        border: 1px solid skyblue;
-        margin: auto;
-        margin-top: 15px;
-        margin-bottom: 15px;
-        padding-left: 20px;
-        width: 300px;
-        height: 40px;
-        display: block;
-    }
-    & button {
-        width: 300px;
-        height: 35px;
-        cursor: pointer;
-    }
-    &__err {
-        color: red;
-        margin-top: 20px;
-    }
-}
+ 
 </style>

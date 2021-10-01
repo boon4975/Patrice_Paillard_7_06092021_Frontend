@@ -1,19 +1,21 @@
 <template>
 <div id="login">
-    <h1>Login</h1>
+    <h1>Connexion</h1>
     <div class="login w-100">
         <input type="text" placeholder="email" v-model="email" class="form-control">
-        <input type="password" placeholder="password" v-model="password" class="form-control">
-        <button class="btn btn-secondary" @click="login()">Log In</button>
+        <input type="password" placeholder="mot de passe" v-model="password" class="form-control">
+        <button class="btn btn-secondary" @click="login()">Se connecter</button>
         <div class="login__err">{{ msgerr }}</div>
+        <router-link to='/signup'><p>S'inscrire</p></router-link>
     </div>
 </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import env from '../env';
 export default {
-    name: 'login',
+    name: 'Login',
     data(){
         return {
             email: '',
@@ -23,8 +25,7 @@ export default {
     },
     methods: {
         async login(){
-            
-                let result = await axios.post('http://localhost:3000/api/auth/login',{
+                let result = await axios.post(`http://${env.host}:${env.port}/api/auth/login`,{
                     email:this.email,
                     password:this.password
                 });
@@ -44,34 +45,9 @@ export default {
             
         }
     },
-    
 }
 </script>
 
 <style scoped lang="scss">
-h1 {
-    margin: 10px 0;
-}
-.login {
-    margin-top: 20px;
-    & input {
-        border: 1px solid skyblue;
-        margin: auto;
-        margin-top: 15px;
-        margin-bottom: 15px;
-        padding-left: 20px;
-        width: 300px;
-        height: 40px;
-        display: block;
-    }
-    & button {
-        width: 300px;
-        height: 35px;
-        cursor: pointer;
-    }
-    &__err {
-        color: red;
-        margin-top: 20px;
-    }
-}
+
 </style>
