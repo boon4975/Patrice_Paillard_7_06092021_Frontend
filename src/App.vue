@@ -51,7 +51,7 @@ body {
     }
   }
 }
-//composants de connexion
+//style composants de connexion
 h1 {
   margin: 10px 0;
 }
