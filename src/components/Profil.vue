@@ -1,16 +1,12 @@
 <template>
     <router-link to="/"><i class="fas fa-house-user fa-lg"></i> </router-link>
     <hr />
-    <h5>{{ pseudo }}</h5>
-    <h5>{{ email }}</h5>
+    <h5>{{ pseudo }} - {{ email }}</h5>
     <p>Changer de mot de passe</p>
     <div class="register w-100">
-        <input type="password" placeholder="ancien mot de passe" v-model="oldpassword" class="form-control">
-        <p class="link">||</p>
-        <input type="password" placeholder="nouveau mot de passe" v-model="newpassword" title="mini 8 caractères + 1 Maj + 1 min + 1 caractères spécial" class="form-control">
-        <p class="link">||</p>
-        <input type="password" placeholder="confirmez le mot de passe" v-model="newconfirm" class="form-control">
-        <p class="link">||</p>
+        <input type="password" placeholder="Mot de passe actuel" v-model="oldpassword" class="form-control">
+        <input type="password" placeholder="Nouveau mot de passe" v-model="newpassword" title="mini 8 caractères + 1 Maj + 1 min + 1 caractères spécial" class="form-control">
+        <input type="password" placeholder="Confirmez le mot de passe" v-model="newconfirm" class="form-control">
         <button class="btn btn-secondary mb-3" @click="changePwd()">Valider</button>
         <div class="register__err my-3">{{ msgerr }}</div>
         <button class="btn btn-outline-danger" type="button" data-toggle="modal" data-target="#popup">Supprimer le compte</button>

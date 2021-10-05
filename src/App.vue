@@ -9,11 +9,30 @@
 
 <script>
 import Banner from "@/components/Banner.vue";
+import {mapState} from 'vuex'
 
 export default {
   components: {
     Banner,
   },
+  computed: {
+        ...mapState([
+            'userId',
+            'moderator',
+            'pseudo'
+            ])
+  },
+  methods:{
+    async getUserInfo(){
+      await this.$store.dispatch('getUserInfo')
+      if(this.userId == 'none'){
+        this.$router.push({name:'Login'})
+      }
+    }
+  },
+  beforeMount(){
+    this.getUserInfo()
+  }
 };
 </script>
 
@@ -22,10 +41,6 @@ export default {
 $primary: #a8ecff;
 $secondary: #4624fd;
 $tertiary: #15d310;
-$width_menu: 100px;
-$translate-nav: 300px;
-$duration_dropdown: 1000ms;
-$duration_delay: 150ms;
 $heigth_banner: 70px;
 
 body {
@@ -43,7 +58,7 @@ body {
 #nav {
   a {
     font-weight: bold;
-    color: #4624FD;
+    color: $secondary;
     text-decoration: none;
     padding: 0 10px;
     &.router-link-exact-active {
@@ -59,7 +74,7 @@ h1 {
 .login {
   margin-top: 20px;
   & input {
-    border: 1px solid skyblue;
+    border: 1px solid $primary;
     margin: auto;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -76,6 +91,10 @@ h1 {
   &__err {
     color: red;
     margin-top: 20px;
+    font-weight: bold;
   }
+}
+.subnav {
+    margin: 15px 0;
 }
 </style>
