@@ -1,26 +1,33 @@
 <template>
-    <div class="container">
-            <div class="picture">
+    <div class="container border rounded my-3">
+        <div class="picture my-1">
                 <div class="picture__cadre">
                     <img src="@/assets/images/cheval02.jpg" alt="photo ourson" class="card-img-top" />
                 </div>
             </div>
-            <div class="card-body">
-                <p>{{ pseudo }}</p>
-                <h2 class="card-title text-center" id="name">titre</h2>
-                <div class="card-text my-3">
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio corporis, vero facere recusandae ipsa labore odit in commodi, iure, quia et maxime. Quae, ad nam. Fugit animi aliquam provident culpa.</p>
-                <div class="icon">
-                    <i class="fas fa-edit fa-lg" v-if="owner"></i>
-                    <i class="fas fa-comments fa-lg" @click="show = !show"></i>
+        <div class="row">
+            <div class="col-3"><p>{{user.pseudo}}</p></div>
+            <div class="col-9">
+                <div class="row">
+                    <h1>{{title}}</h1>
                 </div>
+                <div class="row px-2">
+                    {{message}}
+                </div>
+                <div class="row">
+                    <div class="col-3 icon"><i class="fas fa-comments fa-lg" @click="show = !show"></i></div>
+                    <div class="col-3"><i class="fas fa-edit fa-lg" v-if="owner"></i></div>
+                    <div class="col-3">like +1</div>
+                    <div class="col-3">dislike -1</div>
                 </div>
             </div>
-            <div class="comments">
-                <Comment v-if="show"/>
-            </div> 
-        
+        </div>
+        <div class="row comments border my-1">
+            <Comment v-if="show"/>
+        </div>
     </div>
+
+
 </template>
 
 <script>
@@ -32,6 +39,11 @@ export default {
     components: {
         Comment
     },
+    data(){
+        return {
+            show: false
+        }
+    },
     computed: {
         ...mapState([
             'userId',
@@ -39,10 +51,13 @@ export default {
             'pseudo'
             ])
     },
-    data(){
-        return {
-            show: false,
-            owner:''
+    props:["title","message","user","id"]
+    ,
+    methods: {
+        seeComment(){
+            if(this.show){
+               document.getElementById('') 
+            }
         }
     }
 }
@@ -67,15 +82,13 @@ export default {
     }
 }
 
-.icon {
-    color: #4624fd;
-    & i {
-        margin: 0 15px;
+.icon i{
+    color: red;
+    margin: 0 15px;
         &:hover {
-            color: steelblue;
-            cursor: pointer;
+            color: greenyellow;
+            cursor: pointer;  
         }
-    }
 }
 
 </style>

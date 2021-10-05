@@ -1,6 +1,6 @@
 <template>
     <div class="banner">
-        <img alt="logo Groupomania" src="../assets/logo.svg" class="banner__logo">
+        <router-link to="/"><img alt="logo Groupomania" src="../assets/logo.svg" class="banner__logo"></router-link>
     </div>
 </template>
 
