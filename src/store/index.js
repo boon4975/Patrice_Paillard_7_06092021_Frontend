@@ -18,11 +18,21 @@ export default createStore({
         state.moderator = JSON.parse(user).moderator
         state.token = JSON.parse(user).token
       }
+    },
+    LOGOUT(state){
+      state.user_id = 'none'
+      state.email = ''
+      state.pseudo = ''
+      state.moderator = ''
+      state.token = ''
     }
   },
   actions: {
     getUserInfo(context){
       context.commit('GET_USER_INFO')
+    },
+    logout(context){
+      context.commit('LOGOUT')
     }
   },
   modules: {

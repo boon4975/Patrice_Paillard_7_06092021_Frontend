@@ -42,6 +42,7 @@ export default {
                 if(result.status == 201){
                     try{
                         sessionStorage.setItem("user-info", JSON.stringify(result.data));
+                        this.$store.dispatch('getUserInfo');
                         this.$router.push({name:'Home'})
                     }
                     catch(e) {

@@ -2,6 +2,7 @@
   <div class="home">
     <NavMenu />
   </div>
+  <p>{{user_id}}</p>
 </template>
 
 <script>
@@ -9,6 +10,7 @@
 import NavMenu from '@/components/NavMenu.vue'
 //import Post from '@/components/Post.vue'
 import {mapState} from 'vuex'
+
 
 
 export default {
@@ -23,6 +25,11 @@ export default {
             'moderator',
             'pseudo'
             ])
+  },
+  mounted(){
+    if(this.user_id == 'none'){
+        this.$router.push({name:'Login'})
+      }
   }
 }
 

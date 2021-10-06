@@ -1,7 +1,7 @@
 <template>
     <router-link to="/posts"><i class="fas fa-lg fa-book-reader"></i></router-link> |
     <router-link to="/about"><i class="far fa-lg fa-images"></i></router-link> |
-    <router-link to="/profil" @click="profil()"><i class="fas fa-lg fa-user-cog" title="Profil utilisateur"></i></router-link> |
+    <router-link to="/profil"><i class="fas fa-lg fa-user-cog" title="Profil utilisateur"></i></router-link> |
     <router-link to="/login" @click="logout()"><i class="fas fa-lg fa-sign-out-alt" title="Déconnexion"></i></router-link>
     
 </template>
@@ -12,6 +12,7 @@ export default {
     methods: {
         logout(){
             sessionStorage.clear();
+            this.$store.dispatch('logout')
             this.$router.push({name: 'Login'})
         }
     }
