@@ -9,6 +9,7 @@
         </form>
         <button class="btn btn-primary" @click="newpost()">Publier</button>
     </div>
+    <p>{{ msgerr }}</p>
 </template>
 
 <script>
@@ -34,6 +35,7 @@ export default {
         return {
             title: '',
             message: '',
+            msgerr:''
         }
     },
     methods: {
@@ -44,7 +46,11 @@ export default {
                 message: this.message,
                 user_id: this.user_id
             })
-            return result
+            if(result.status == 201){
+                this.$router.push({name: 'Home'})
+            }else{
+                this.msgerr = 'problème lors de la publication'
+            }
         }
     }
 }
