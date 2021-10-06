@@ -4,25 +4,25 @@
                 <div class="picture__cadre">
                     <img src="@/assets/images/cheval02.jpg" alt="photo ourson" class="card-img-top" />
                 </div>
-            </div>
+        </div>
         <div class="row">
             <div class="col-3"><p>{{user.pseudo}}</p></div>
-            <div class="col-9">
+            <div class="col-9 border">
                 <div class="row">
-                    <h1>{{title}}</h1>
+                    <h3>{{title}}</h3>
                 </div>
                 <div class="row px-2">
-                    {{message}}
+                    <p>{{message}}</p>
                 </div>
                 <div class="row">
                     <div class="col-3 icon"><i class="fas fa-comments fa-lg" @click="show = !show"></i></div>
-                    <div class="col-3"><i class="fas fa-edit fa-lg" v-if="owner"></i></div>
-                    <div class="col-3">like +1</div>
-                    <div class="col-3">dislike -1</div>
+                    <div class="col-3"><i class="fas fa-edit fa-lg" v-if="moderator || owner == user_id"></i>modo</div>
+                    <div class="col-3">+1</div>
+                    <div class="col-3">-1</div>
                 </div>
             </div>
         </div>
-        <div class="row comments border my-1">
+        <div class="row comments my-1">
             <Comment v-if="show"/>
         </div>
     </div>
@@ -51,7 +51,7 @@ export default {
             'pseudo'
             ])
     },
-    props:["title","message","user","id"]
+    props:["title","message","user","id","owner"]
     ,
     methods: {
         seeComment(){
