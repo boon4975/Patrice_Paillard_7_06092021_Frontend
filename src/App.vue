@@ -17,7 +17,7 @@ export default {
   },
   computed: {
         ...mapState([
-            'userId',
+            'user_id',
             'moderator',
             'pseudo'
             ])
@@ -25,7 +25,7 @@ export default {
   methods:{
     async getUserInfo(){
       await this.$store.dispatch('getUserInfo')
-      if(this.userId == 'none'){
+      if(this.user_id == 'none'){
         this.$router.push({name:'Login'})
       }
     }

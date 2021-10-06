@@ -44,7 +44,7 @@ export default {
     },
     computed: {
         ...mapState([
-            'userId',
+            'user_id',
             'moderator',
             'pseudo',
             'token'

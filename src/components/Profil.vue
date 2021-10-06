@@ -43,7 +43,7 @@ export default {
     },
     computed: {
         ...mapState([
-            'userId',
+            'user_id',
             'email',
             'moderator',
             'pseudo',
@@ -62,7 +62,7 @@ export default {
         async changePwd(){
             if(this.newpassword === this.newconfirm){
                 let result = await axios.put(`http://${env.host}:${env.port}/api/auth/profil`,{
-                    userId:this.userId,
+                    user_id:this.user_id,
                     token:this.token,
                     oldpassword:this.oldpassword,
                     newpassword:this.newpassword
@@ -86,7 +86,7 @@ export default {
             }
         },
         async deluser(){
-            let user = await axios.delete(`http://${env.host}:${env.port}/api/auth/profil/${this.userId}`,
+            let user = await axios.delete(`http://${env.host}:${env.port}/api/auth/profil/${this.user_id}`,
                 {
                     headers: {Authorization : `Bearer ${this.token}`}
                 },{});

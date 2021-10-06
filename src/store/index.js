@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    userId: 'none',
+    user_id: 'none',
     email:'',
     pseudo: '',
     moderator: '',
@@ -12,7 +12,7 @@ export default createStore({
     GET_USER_INFO(state){
       let user = sessionStorage.getItem('user-info')
       if(user){
-        state.userId = JSON.parse(user).userId
+        state.user_id = JSON.parse(user).user_id
         state.email = JSON.parse(user).email
         state.pseudo = JSON.parse(user).pseudo
         state.moderator = JSON.parse(user).moderator
