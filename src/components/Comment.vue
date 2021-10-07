@@ -1,4 +1,5 @@
 <template>
+    <hr/>
     <p>commentaires de ...</p>
     <p></p>
 </template>

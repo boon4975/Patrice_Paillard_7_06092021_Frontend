@@ -1,13 +1,15 @@
 <template>
 <div id="signUp">
     <h1>Création de compte</h1>
-    <div class="register w-100">
-        <input type="text" placeholder="pseudo" v-model="pseudo" title="Votre Pseudo : 4 lettres et/ou chiffres minimum" class="form-control">
-        <input type="text" placeholder="email" v-model="email" title="Votre email" class="form-control">
-        <input type="password" placeholder="mot de passe" v-model="password" title="mini 8 caractères + 1 Maj + 1 min + 1 caractères spécial" class="form-control">
-        <input type="password" placeholder="confirmez le mot de passe" v-model="passwordConfirm" class="form-control">
+    <div class="formfield w-100">
+        <form>
+            <input type="text" placeholder="pseudo" v-model="pseudo" title="Votre Pseudo : 4 lettres et/ou chiffres minimum" class="form-control">
+            <input type="text" placeholder="email" v-model="email" title="Votre email" class="form-control">
+            <input type="password" placeholder="mot de passe" v-model="password" title="mini 8 caractères + 1 Maj + 1 min + 1 caractères spécial" class="form-control">
+            <input type="password" placeholder="confirmez le mot de passe" v-model="passwordConfirm" class="form-control">
+        </form>
         <button class="btn btn-secondary" @click="signUp()">S'enregistrer</button>
-        <div class="register__err">{{ msgerr }}</div>
+        <div class="formfield__err">{{ msgerr }}</div>
         <router-link to='/login'><p>Se connecter</p></router-link>
         
     </div>

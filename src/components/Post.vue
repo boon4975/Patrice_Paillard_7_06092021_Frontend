@@ -1,33 +1,31 @@
 <template>
     <div class="container border rounded my-3">
-        <div class="picture my-1">
-                <div class="picture__cadre">
-                    <img src="@/assets/images/cheval02.jpg" alt="photo ourson" class="card-img-top" />
-                </div>
-        </div>
         <div class="row">
             <div class="col-3"><p>{{user.pseudo}}</p></div>
             <div class="col-9 border">
+                <div class="picture my-1">
+                    <div class="picture__cadre">
+                        <img src="@/assets/images/cheval02.jpg" alt="photo ourson" class="card-img-top" />
+                    </div>
+                </div>
                 <div class="row">
                     <h3>{{title}}</h3>
                 </div>
-                <div class="row px-2">
+                <div class="row px-2 wrap-text">
                     <p>{{message}}</p>
                 </div>
                 <div class="row">
-                    <div class="col-3 icon"><i class="fas fa-comments fa-lg" @click="show = !show"></i></div>
-                    <div class="col-3"><i class="fas fa-edit fa-lg" v-if="moderator || owner == user_id"></i>modo</div>
+                    <div class="col-3 icon"><i :id="postId" class="fas fa-comments fa-lg" @click="show = !show, changeColor(postId)"></i></div>
+                    <div class="col-3 icon"><i :id="postId" class="fas fa-edit fa-lg" v-if="moderator || owner == user_id" @click="modifyPost(postId), changeColor(postId)"></i></div>
                     <div class="col-3">+1</div>
                     <div class="col-3">-1</div>
                 </div>
+                <div class="row comments my-1">
+                    <Comment v-if="show"/>
+                </div>
             </div>
         </div>
-        <div class="row comments my-1">
-            <Comment v-if="show"/>
-        </div>
     </div>
-
-
 </template>
 
 <script>
@@ -48,18 +46,27 @@ export default {
         ...mapState([
             'user_id',
             'moderator',
-            'pseudo'
+            'pseudo',
+            'currentPost'
             ])
     },
-    props:["title","message","user","id","owner"]
-    ,
-    methods: {
-        seeComment(){
-            if(this.show){
-               document.getElementById('') 
+    props:["title","message","user","id","owner","postId"],
+    methods:{
+        modifyPost(value){
+            sessionStorage.setItem('post-info', value)
+            this.$store.dispatch('currentPost')
+            this.$router.push({name:'ModifyPost'})
+        },
+        changeColor(value){
+            if(!this.show){
+                document.getElementById(value).style.color = 'blueviolet'
+            }else{
+                document.getElementById(value).style.color = 'greenyellow'
             }
+            
         }
     }
+
 }
 
 </script>
@@ -83,7 +90,7 @@ export default {
 }
 
 .icon i{
-    color: red;
+    color: blueviolet;
     margin: 0 15px;
         &:hover {
             color: greenyellow;
@@ -91,4 +98,8 @@ export default {
         }
 }
 
+.wrap-text {
+    white-space: pre;
+    text-align: left;
+}
 </style>

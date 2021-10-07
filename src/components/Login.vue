@@ -1,11 +1,13 @@
 <template>
 <div id="login">
     <h1>Connexion</h1>
-    <div class="login w-100">
-        <input type="text" placeholder="email" v-model="email" class="form-control">
-        <input type="password" placeholder="mot de passe" v-model="password" class="form-control">
+    <div class="formfield w-100">
+        <form>
+            <input type="text" placeholder="email" v-model="email" class="form-control">
+            <input type="password" placeholder="mot de passe" v-model="password" class="form-control">
+        </form>
         <button class="btn btn-secondary" @click="login()">Se connecter</button>
-        <div class="login__err">{{ msgerr }}</div>
+        <div class="formfield__err">{{ msgerr }}</div>
         <router-link to='/signup'><p>S'inscrire</p></router-link>
     </div>
 </div>

@@ -6,7 +6,8 @@ export default createStore({
     email:'',
     pseudo: '',
     moderator: '',
-    token:''
+    token:'',
+    currentPost: 0
   },
   mutations: {
     GET_USER_INFO(state){
@@ -25,6 +26,10 @@ export default createStore({
       state.pseudo = ''
       state.moderator = ''
       state.token = ''
+    },
+    CURRENT_POST(state){
+      let post = sessionStorage.getItem('post-info')
+      state.currentPost = post
     }
   },
   actions: {
@@ -33,6 +38,9 @@ export default createStore({
     },
     logout(context){
       context.commit('LOGOUT')
+    },
+    currentPost(context){
+      context.commit('CURRENT_POST')
     }
   },
   modules: {

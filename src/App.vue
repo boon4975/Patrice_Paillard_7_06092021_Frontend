@@ -70,11 +70,12 @@ body {
 h1 {
   margin: 10px 0;
 }
-.register,
-.login {
+.formfield {
   margin-top: 20px;
-  & input {
+  & input, textarea {
     border: 1px solid $primary;
+  }
+  & input {
     margin: auto;
     margin-top: 15px;
     margin-bottom: 15px;

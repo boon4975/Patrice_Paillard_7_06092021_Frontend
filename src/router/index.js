@@ -40,6 +40,11 @@ const routes = [
     name: 'NewPost',
     component: () => import('../components/NewPost.vue')
   },
+  {
+    path: '/modifypost',
+    name: 'ModifyPost',
+    component: () => import('../components/ModifyPost.vue')
+  },
 ]
 
 const router = createRouter({

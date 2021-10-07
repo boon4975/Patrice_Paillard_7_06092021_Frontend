@@ -1,7 +1,7 @@
 <template>
     <NavMenu />
     <div class="container">
-        <form class="register w-100 py-3">
+        <form class="formfield w-100 py-3">
             <label for="Titre de la publication">Titre de la publication</label>
             <input type="text" name="Titre de la publication" v-model="title" class="form-control" maxlength="49">
             <label for="Message">Votre texte</label>
@@ -9,7 +9,7 @@
         </form>
         <button class="btn btn-primary" @click="newpost()">Publier</button>
     </div>
-    <p>{{ msgerr }}</p>
+    <p class="formfield__err">{{ msgerr }}</p>
 </template>
 
 <script>

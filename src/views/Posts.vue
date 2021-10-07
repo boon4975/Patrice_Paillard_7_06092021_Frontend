@@ -10,6 +10,7 @@
         :message="item.message"
         :user="item.user"
         :owner="item.user.id"
+        :postId="item.id"
         />
 <!-- -->
 </template>
@@ -36,7 +37,9 @@ export default {
         async getAllPosts(){
             let getposts = await axios.get(`http://${env.host}:${env.port}/api/post`)
             this.posts = getposts.data
-        }
+        },
+        
+        
     },
     computed:{
         ...mapState([
