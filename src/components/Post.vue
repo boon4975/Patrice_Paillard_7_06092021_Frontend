@@ -16,7 +16,7 @@
                 </div>
                 <div class="row">
                     <div class="col-3 icon">
-                        <i :id="postId" class="fas fa-comment fa-lg" @click="show = !show, changeColor(postId)"></i>
+                        <i :id="postId" class="fas fa-comment fa-lg" @click="show = !show, changeColor(postId)"><sup>{{nbcomment}}</sup></i>
                         <i class="fas fa-plus-circle fa-lg" @click="addComment(0, postId)"></i>
                     </div>
                     <div class="col-3 icon">
@@ -56,7 +56,8 @@ export default {
     },
     data(){
         return {
-            show: false
+            show: false,
+            nbcomment: this.comments.length
         }
     },
     computed: {
@@ -124,6 +125,9 @@ export default {
             color: darkgreen;
             cursor: pointer;  
         }
+}
+sup {
+    color: red;
 }
 
 </style>
