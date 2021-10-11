@@ -27,6 +27,7 @@ export default {
     },
     methods: {
         async login(){
+            try{
                 let result = await axios.post(`http://${env.host}:${env.port}/api/auth/login`,{
                     email:this.email,
                     password:this.password
@@ -45,6 +46,10 @@ export default {
                 }else{
                     this.msgerr = 'erreur serveur';
                 }
+            }
+            catch(e){
+                console.log(e)
+            }
             
         }
     },

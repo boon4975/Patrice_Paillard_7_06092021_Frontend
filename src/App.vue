@@ -39,8 +39,8 @@ export default {
 
 <style lang="scss">
 $primary: #a8ecff;
-$secondary: #4624fd;
-$tertiary: #15d310;
+$secondary: #1F3250;
+$tertiary: #d1515a;
 $heigth_banner: 70px;
 
 body {
@@ -75,7 +75,7 @@ h1 {
 .formfield {
   margin-top: 20px;
   & input, textarea {
-    border: 1px solid $primary;
+    border: 1px solid $tertiary;
   }
   & input {
     margin: auto;
@@ -85,6 +85,8 @@ h1 {
     width: 300px;
     height: 40px;
     display: block;
+    box-shadow: 1px 5px 3px $tertiary;
+    border-radius: 10px; 
   }
   & button {
     width: 300px;

@@ -34,10 +34,36 @@ export default {
             posts: ''
         }
     },
+    computed:{
+        ...mapState([
+            'user_id',
+            'moderator',
+            'pseudo',
+            'token'
+            ])
+    },
     methods: {
         async getAllPosts(){
-            let getposts = await axios.get(`http://${env.host}:${env.port}/api/post`)
-            this.posts = getposts.data
+            try{
+                let getposts = await axios.get(`http://${env.host}:${env.port}/api/post`,
+                    {
+                        headers: {Authorization : `Bearer ${this.token}`}
+                    },
+                    {});
+                this.posts = getposts.data
+            }
+            catch (error) {
+                if(error.response.request.status == 401){
+                   sessionStorage.removeItem('user-info')
+                }
+            }
+            finally {
+                let user = sessionStorage.getItem('user-info')
+                if(user == null){
+                    alert('Votre session a expiré. Veuillez vous reconnecter')
+                    this.$router.push({name:'Login'})
+                }
+            }
         },
         addPost(value){
             let postInfo = {
@@ -46,16 +72,7 @@ export default {
             }
             sessionStorage.setItem('postInfo', JSON.stringify(postInfo))
             this.$router.push({name:'EditPost'})
-        },
-        
-        
-    },
-    computed:{
-        ...mapState([
-            'user_id',
-            'moderator',
-            'pseudo'
-            ])
+        }  
     },
     mounted(){
         this.getAllPosts()

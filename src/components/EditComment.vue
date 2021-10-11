@@ -56,49 +56,114 @@ export default {
     },
     methods: {
         async getComment(id) {
-            let result = await axios.get(`http://${env.host}:${env.port}/api/comment/${id}`)
-            if(result.status == 200){
-               this.message = result.data.message
-            }else{
-                this.msgerr = 'problème avec la publication'
+            try{
+                let result = await axios.get(`http://${env.host}:${env.port}/api/comment/${id}`,
+                    {
+                        headers: {Authorization : `Bearer ${this.token}`}
+                    },
+                    {})
+                if(result.status == 200){
+                this.message = result.data.message
+                }else{
+                    this.msgerr = 'problème avec la publication'
+                }
+            }
+            catch (error) {
+                if(error.response.request.status == 401){
+                   sessionStorage.removeItem('user-info')
+                }
+            }
+            finally {
+                let user = sessionStorage.getItem('user-info')
+                if(user == null){
+                    alert('Votre session a expiré. Veuillez vous reconnecter')
+                    this.$router.push({name:'Login'})
+                }
             }
         },
         async addcomment(id) {
-            let result = await axios.post(`http://${env.host}:${env.port}/api/comment`,
-            {
-                post_id: id,
-                message: this.message,
-                user_id: this.user_id
-            })
-            if(result.status == 201){
-                this.$router.push({name: 'Posts'})
-            }else{
-                this.msgerr = 'problème lors de la publication'
+            try{
+                let result = await axios.post(`http://${env.host}:${env.port}/api/comment`,
+                    {
+                        post_id: id,
+                        message: this.message,
+                        user_id: this.user_id
+                    },
+                    {
+                        headers: {Authorization : `Bearer ${this.token}`}
+                    },
+                    {}
+                )
+                if(result.status == 201){
+                    this.$router.push({name: 'Posts'})
+                }else{
+                    this.msgerr = 'problème lors de la publication'
+                }
+            }
+            catch (error) {
+                if(error.response.request.status == 401){
+                   sessionStorage.removeItem('user-info')
+                }
+            }
+            finally {
+                let user = sessionStorage.getItem('user-info')
+                if(user == null){
+                    alert('Votre session a expiré. Veuillez vous reconnecter')
+                    this.$router.push({name:'Login'})
+                }
             }
         },
         async updateComment(id){
-            let result = await axios.put(`http://${env.host}:${env.port}/api/comment`,
-            {
-                comment_id: id,
-                message: this.message,
-            })
-            if(result.status == 201){
-                this.$router.push({name: 'Posts'})
-            }else{
-                alert('erreur lors update')
+            try{
+                let result = await axios.put(`http://${env.host}:${env.port}/api/comment`,
+                    {
+                        comment_id: id,
+                        message: this.message,
+                    },
+                    {
+                        headers: {Authorization : `Bearer ${this.token}`}
+                    },
+                    {}
+                )
+                if(result.status == 201){
+                    this.$router.push({name: 'Posts'})
+                }else{
+                    alert('erreur lors update')
+                }
+            }
+            catch (error) {
+                if(error.response.request.status == 401){
+                   sessionStorage.removeItem('user-info')
+                }
+            }
+            finally {
+                let user = sessionStorage.getItem('user-info')
+                if(user == null){
+                    alert('Votre session a expiré. Veuillez vous reconnecter')
+                    this.$router.push({name:'Login'})
+                }
             }
         },
         async delComment(id){
-            let comment = await axios.delete(`http://${env.host}:${env.port}/api/comment/${id}`,
-            {
-                    headers: {Authorization : `Bearer ${this.token}`}
-                },{});
-            if(comment.status == 201 ){
-                sessionStorage.removeItem('postInfo');
-                sessionStorage.removeItem('commentInfo');
-                this.$router.push({name:'Posts'})
-            }else{
-                this.msgerr = comment.data;
+            try{
+                let comment = await axios.delete(`http://${env.host}:${env.port}/api/comment/${id}`,
+                    {
+                        headers: {Authorization : `Bearer ${this.token}`}
+                    },{});
+                if(comment.status == 201 ){
+                    sessionStorage.removeItem('postInfo');
+                    sessionStorage.removeItem('commentInfo');
+                    this.$router.push({name:'Posts'})
+                }else{
+                    this.msgerr = comment.data;
+                }
+            }
+            finally {
+                let user = sessionStorage.getItem('user-info')
+                if(user == null){
+                    alert('Votre session a expiré. Veuillez vous reconnecter')
+                    this.$router.push({name:'Login'})
+                }
             }
         }
     },
