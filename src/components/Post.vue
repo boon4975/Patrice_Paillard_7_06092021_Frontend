@@ -1,13 +1,13 @@
 <template>
     <div class="container border rounded my-3">
         <div class="row">
-            <div class="col-3 border-end"><p>{{user.pseudo}}</p></div>
-            <div class="col-9">
-                <div class="picture my-1">
+            <div class="col-12 col-md-3 border-end"><p>{{user.pseudo}}</p></div>
+            <div class="col-12 col-md-9">
+                <!--<div class="picture my-1">
                     <div class="picture__cadre">
                         <img src="@/assets/images/cheval02.jpg" alt="photo ourson" class="card-img-top" />
                     </div>
-                </div>
+                </div>-->
                 <div class="row">
                     <h3>{{title}}</h3>
                 </div>
@@ -19,7 +19,9 @@
                         <i :id="postId" class="fas fa-comment fa-lg" @click="show = !show, changeColor(postId)"></i>
                         <i class="fas fa-plus-circle fa-lg" @click="addComment(0, postId)"></i>
                     </div>
-                    <div class="col-3 icon"><i class="fas fa-edit fa-lg" v-if="moderator || owner == user_id" @click="modifyPost(postId)"></i></div>
+                    <div class="col-3 icon">
+                        <i class="fas fa-edit fa-lg" v-if="moderator || owner == user_id" @click="editPost(postId)"></i>
+                    </div>
                     <div class="col-3">+1</div>
                     <div class="col-3">-1</div>
                 </div>
@@ -34,6 +36,7 @@
                         :author="item.user.pseudo"
                         :authorMod="item.user.moderator"
                         :commentId="item.id"
+                        :postId="postId"
 
                     />
                 </div>
@@ -65,7 +68,7 @@ export default {
     },
     props:["title","message","user","id","owner","postId","comments"],
     methods:{
-        modifyPost(value){
+        editPost(value){
             let postInfo = {
                 'id': value,
                 'new': false
@@ -123,8 +126,4 @@ export default {
         }
 }
 
-.wrap-text {
-    white-space: pre;
-    text-align: left;
-}
 </style>

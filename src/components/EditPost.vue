@@ -8,8 +8,8 @@
             <textarea name="Message" v-model="message" cols="30" rows="10" class="form-control"></textarea>
         </form>
         <button class="btn btn-primary" v-if="this.postInfo.new" @click="addpost()">Publier</button>
-        <button class="btn btn-primary mx-2" v-if="!this.postInfo.new" @click="updatePost(this.postInfo.id)">Modifier la publication</button>
-        <button class="btn btn-outline-danger mx-2" v-if="!this.postInfo.new" data-toggle="modal" data-target="#popup">Supprimer</button>
+        <button class="btn btn-primary m-2" v-if="!this.postInfo.new" @click="updatePost(this.postInfo.id)">Modifier la publication</button>
+        <button class="btn btn-outline-danger m-2" v-if="!this.postInfo.new" data-toggle="modal" data-target="#popup">Supprimer</button>
     </div>
     <p class="formfield__err">{{ msgerr }}</p>
     <div id="popup" class="modal">

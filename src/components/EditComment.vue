@@ -5,9 +5,9 @@
             <label for="Message">Un commentaire ?</label>
             <textarea name="Message" v-model="message" cols="30" rows="10" class="form-control"></textarea>
         </form>
-        <button class="btn btn-primary" v-if="this.new" @click="addcomment()">Commenter</button>
-        <button class="btn btn-primary mx-2" v-if="!this.new" @click="updateComment(currentComment)">Modifier</button>
-        <button class="btn btn-outline-danger mx-2" v-if="!this.new" data-toggle="modal" data-target="#popup">Supprimer</button>
+        <button class="btn btn-primary" v-if="this.comment_info.new" @click="addcomment(this.comment_info.post_id)">Commenter</button>
+        <button class="btn btn-primary mx-2" v-if="!this.comment_info.new" @click="updateComment(this.comment_info.id)">Modifier</button>
+        <button class="btn btn-outline-danger mx-2" v-if="!this.comment_info.new" data-toggle="modal" data-target="#popup">Supprimer</button>
     </div>
     <p class="formfield__err">{{ msgerr }}</p>
     <div id="popup" class="modal">
@@ -15,11 +15,10 @@
             <div class="modal-content">
                 <div class="modal-body">
                     confirmez la suppression
-                    <br/>de la publication /!\
-                    <br/>et des commentaires associés /!\
+                    du commentaire
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-outline-danger" data-dismiss="modal" @click="delComment(currentComment)">Supprimer</button>
+                    <button class="btn btn-outline-danger" data-dismiss="modal" @click="delComment(this.comment_info.id)">Supprimer</button>
                     <button class="btn btn-outline-primary" data-dismiss="modal">Annuler</button>
                 </div>
             </div>
@@ -44,8 +43,7 @@ export default {
             'email',
             'moderator',
             'pseudo',
-            'token',
-            'currentComment'
+            'token'
             ])
     },
     data(){
@@ -53,14 +51,22 @@ export default {
             message: '',
             msgerr:'',
             new:false,
-            post_id: 0
+            comment_info: ''
         }
     },
     methods: {
-        async addcomment() {
+        async getComment(id) {
+            let result = await axios.get(`http://${env.host}:${env.port}/api/comment/${id}`)
+            if(result.status == 200){
+               this.message = result.data.message
+            }else{
+                this.msgerr = 'problème avec la publication'
+            }
+        },
+        async addcomment(id) {
             let result = await axios.post(`http://${env.host}:${env.port}/api/comment`,
             {
-                post_id: this.post_id,
+                post_id: id,
                 message: this.message,
                 user_id: this.user_id
             })
@@ -69,17 +75,40 @@ export default {
             }else{
                 this.msgerr = 'problème lors de la publication'
             }
+        },
+        async updateComment(id){
+            let result = await axios.put(`http://${env.host}:${env.port}/api/comment`,
+            {
+                comment_id: id,
+                message: this.message,
+            })
+            if(result.status == 201){
+                this.$router.push({name: 'Posts'})
+            }else{
+                alert('erreur lors update')
+            }
+        },
+        async delComment(id){
+            let comment = await axios.delete(`http://${env.host}:${env.port}/api/comment/${id}`,
+            {
+                    headers: {Authorization : `Bearer ${this.token}`}
+                },{});
+            if(comment.status == 201 ){
+                sessionStorage.removeItem('postInfo');
+                sessionStorage.removeItem('commentInfo');
+                this.$router.push({name:'Posts'})
+            }else{
+                this.msgerr = comment.data;
+            }
         }
     },
     created(){
         let commentInfo = JSON.parse(sessionStorage.getItem('commentInfo'))
         if(commentInfo.id > 0){
-            this.getOnePost(commentInfo.id)
-            this.new = commentInfo.new
-            this.post_id = commentInfo.post_id
+            this.getComment(commentInfo.id)
+            this.comment_info = commentInfo
         }else{
-            this.new = commentInfo.new
-            this.post_id = commentInfo.post_id
+            this.comment_info = commentInfo
         } 
     }
 }
