@@ -39,6 +39,11 @@ const routes = [
     path: '/editpost',
     name: 'EditPost',
     component: () => import('../components/EditPost.vue')
+  },
+  {
+    path: '/editcomment',
+    name: 'EditComment',
+    component: () => import('../components/EditComment.vue')
   }
 ]
 

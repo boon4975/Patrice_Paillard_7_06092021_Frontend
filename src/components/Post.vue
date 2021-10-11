@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-3 icon">
                         <i :id="postId" class="fas fa-comment fa-lg" @click="show = !show, changeColor(postId)"></i>
-                        <i class="fas fa-plus-circle fa-lg"></i>
+                        <i class="fas fa-plus-circle fa-lg" @click="addComment(0, postId)"></i>
                     </div>
                     <div class="col-3 icon"><i class="fas fa-edit fa-lg" v-if="moderator || owner == user_id" @click="modifyPost(postId)"></i></div>
                     <div class="col-3">+1</div>
@@ -60,8 +60,7 @@ export default {
         ...mapState([
             'user_id',
             'moderator',
-            'pseudo',
-            'currentPost'
+            'pseudo'
             ])
     },
     props:["title","message","user","id","owner","postId","comments"],
@@ -72,7 +71,6 @@ export default {
                 'new': false
             }
             sessionStorage.setItem('postInfo', JSON.stringify(postInfo))
-            this.$store.dispatch('currentPost')
             this.$router.push({name:'EditPost'})
         },
         changeColor(value){
@@ -82,7 +80,16 @@ export default {
                 document.getElementById(value).style.color = 'darkgreen'
             }
             
-        }
+        },
+        addComment(value, postId){
+            let commentInfo = {
+                'id': value,
+                'new': true,
+                'post_id': postId
+            }
+            sessionStorage.setItem('commentInfo', JSON.stringify(commentInfo))
+            this.$router.push({name:'EditComment'})
+        },
     }
 
 }

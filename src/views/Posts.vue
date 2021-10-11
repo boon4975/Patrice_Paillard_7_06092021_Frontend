@@ -45,7 +45,6 @@ export default {
                 'new': true
             }
             sessionStorage.setItem('postInfo', JSON.stringify(postInfo))
-            this.$store.dispatch('currentPost')
             this.$router.push({name:'EditPost'})
         },
         

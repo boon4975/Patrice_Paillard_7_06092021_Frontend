@@ -7,9 +7,9 @@
             <label for="Message">Votre texte</label>
             <textarea name="Message" v-model="message" cols="30" rows="10" class="form-control"></textarea>
         </form>
-        <button class="btn btn-primary" v-if="this.new" @click="addpost()">Publier</button>
-        <button class="btn btn-primary mx-2" v-if="!this.new" @click="updatePost(currentPost)">Modifier la publication</button>
-        <button class="btn btn-outline-danger mx-2" v-if="!this.new" data-toggle="modal" data-target="#popup">Supprimer</button>
+        <button class="btn btn-primary" v-if="this.postInfo.new" @click="addpost()">Publier</button>
+        <button class="btn btn-primary mx-2" v-if="!this.postInfo.new" @click="updatePost(this.postInfo.id)">Modifier la publication</button>
+        <button class="btn btn-outline-danger mx-2" v-if="!this.postInfo.new" data-toggle="modal" data-target="#popup">Supprimer</button>
     </div>
     <p class="formfield__err">{{ msgerr }}</p>
     <div id="popup" class="modal">
@@ -21,7 +21,7 @@
                     <br/>et des commentaires associés /!\
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-outline-danger" data-dismiss="modal" @click="delPost(currentPost)">Supprimer</button>
+                    <button class="btn btn-outline-danger" data-dismiss="modal" @click="delPost(this.postInfo.id)">Supprimer</button>
                     <button class="btn btn-outline-primary" data-dismiss="modal">Annuler</button>
                 </div>
             </div>
@@ -46,7 +46,6 @@ export default {
             'moderator',
             'pseudo',
             'token',
-            'currentPost'
             ])
     },
     data(){
@@ -54,7 +53,7 @@ export default {
             title: '',
             message: '',
             msgerr:'',
-            new:false
+            postInfo:''
         }
     },
     methods: {
@@ -63,7 +62,6 @@ export default {
             if(result.status == 200){
                this.title = result.data.title
                this.message = result.data.message
-               this.currentPost = id
             }else{
                 this.msgerr = 'problème avec la publication'
             }
@@ -100,7 +98,8 @@ export default {
                     headers: {Authorization : `Bearer ${this.token}`}
                 },{});
             if(post.status == 201 ){
-                sessionStorage.clear();
+                sessionStorage.removeItem('postInfo');
+                sessionStorage.removeItem('commentInfo');
                 this.$router.push({name:'Posts'})
             }else{
                 this.msgerr = post.data;
@@ -111,11 +110,10 @@ export default {
         let postInfo = JSON.parse(sessionStorage.getItem('postInfo'))
         if(postInfo.id > 0){
             this.getOnePost(postInfo.id)
-            this.new = postInfo.new
+            this.postInfo = postInfo
         }else{
-            this.new = postInfo.new
-        }
-        
+            this.postInfo = postInfo
+        } 
     }
 }
 </script>
