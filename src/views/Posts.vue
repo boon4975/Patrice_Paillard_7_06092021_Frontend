@@ -1,7 +1,7 @@
 <template>
     <NavMenu />
     <div class="subnav">
-        <button class="btn btn-primary" @click="this.$router.push({name:'NewPost'})">Nouvelle publication <i class="fas fa-feather"></i></button>
+        <button class="btn btn-primary" @click="addPost(0)">Nouvelle publication <i class="fas fa-feather"></i></button>
     </div>
     <Post
         v-for="item of posts"
@@ -11,6 +11,7 @@
         :user="item.user"
         :owner="item.user.id"
         :postId="item.id"
+        :comments="item.comments"
         />
 <!-- -->
 </template>
@@ -37,6 +38,15 @@ export default {
         async getAllPosts(){
             let getposts = await axios.get(`http://${env.host}:${env.port}/api/post`)
             this.posts = getposts.data
+        },
+        addPost(value){
+            let postInfo = {
+                'id': value,
+                'new': true
+            }
+            sessionStorage.setItem('postInfo', JSON.stringify(postInfo))
+            this.$store.dispatch('currentPost')
+            this.$router.push({name:'EditPost'})
         },
         
         

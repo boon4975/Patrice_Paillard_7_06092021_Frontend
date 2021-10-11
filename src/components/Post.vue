@@ -1,8 +1,8 @@
 <template>
     <div class="container border rounded my-3">
         <div class="row">
-            <div class="col-3"><p>{{user.pseudo}}</p></div>
-            <div class="col-9 border">
+            <div class="col-3 border-end"><p>{{user.pseudo}}</p></div>
+            <div class="col-9">
                 <div class="picture my-1">
                     <div class="picture__cadre">
                         <img src="@/assets/images/cheval02.jpg" alt="photo ourson" class="card-img-top" />
@@ -15,13 +15,27 @@
                     <p>{{message}}</p>
                 </div>
                 <div class="row">
-                    <div class="col-3 icon"><i :id="postId" class="fas fa-comments fa-lg" @click="show = !show, changeColor(postId)"></i></div>
-                    <div class="col-3 icon"><i :id="postId" class="fas fa-edit fa-lg" v-if="moderator || owner == user_id" @click="modifyPost(postId), changeColor(postId)"></i></div>
+                    <div class="col-3 icon">
+                        <i :id="postId" class="fas fa-comment fa-lg" @click="show = !show, changeColor(postId)"></i>
+                        <i class="fas fa-plus-circle fa-lg"></i>
+                    </div>
+                    <div class="col-3 icon"><i class="fas fa-edit fa-lg" v-if="moderator || owner == user_id" @click="modifyPost(postId)"></i></div>
                     <div class="col-3">+1</div>
                     <div class="col-3">-1</div>
                 </div>
-                <div class="row comments my-1">
-                    <Comment v-if="show"/>
+                <div class="row comments my-1" v-if="show">
+                    <hr/>
+                    <Comment
+                        v-for="item of comments"
+                        :key="item.id"
+                        :message="item.message"
+                        :updatedAt="item.updatedAt"
+                        :authorId="item.userId"
+                        :author="item.user.pseudo"
+                        :authorMod="item.user.moderator"
+                        :commentId="item.id"
+
+                    />
                 </div>
             </div>
         </div>
@@ -50,18 +64,22 @@ export default {
             'currentPost'
             ])
     },
-    props:["title","message","user","id","owner","postId"],
+    props:["title","message","user","id","owner","postId","comments"],
     methods:{
         modifyPost(value){
-            sessionStorage.setItem('post-info', value)
+            let postInfo = {
+                'id': value,
+                'new': false
+            }
+            sessionStorage.setItem('postInfo', JSON.stringify(postInfo))
             this.$store.dispatch('currentPost')
-            this.$router.push({name:'ModifyPost'})
+            this.$router.push({name:'EditPost'})
         },
         changeColor(value){
             if(!this.show){
                 document.getElementById(value).style.color = 'blueviolet'
             }else{
-                document.getElementById(value).style.color = 'greenyellow'
+                document.getElementById(value).style.color = 'darkgreen'
             }
             
         }
@@ -93,7 +111,7 @@ export default {
     color: blueviolet;
     margin: 0 15px;
         &:hover {
-            color: greenyellow;
+            color: darkgreen;
             cursor: pointer;  
         }
 }

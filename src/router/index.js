@@ -36,15 +36,10 @@ const routes = [
     component: () => import('../views/Posts.vue')
   },
   {
-    path: '/newpost',
-    name: 'NewPost',
-    component: () => import('../components/NewPost.vue')
-  },
-  {
-    path: '/modifypost',
-    name: 'ModifyPost',
-    component: () => import('../components/ModifyPost.vue')
-  },
+    path: '/editpost',
+    name: 'EditPost',
+    component: () => import('../components/EditPost.vue')
+  }
 ]
 
 const router = createRouter({

@@ -28,8 +28,8 @@ export default createStore({
       state.token = ''
     },
     CURRENT_POST(state){
-      let post = sessionStorage.getItem('post-info')
-      state.currentPost = post
+      let post = JSON.parse(sessionStorage.getItem('postInfo'))
+      state.currentPost = post.id
     }
   },
   actions: {
