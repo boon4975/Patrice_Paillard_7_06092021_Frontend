@@ -3,10 +3,10 @@
     <h1>Création de compte</h1>
     <div class="formfield w-100">
         <form>
-            <input type="text" placeholder="pseudo" v-model="pseudo" title="Votre Pseudo : 4 lettres et/ou chiffres minimum" class="form-control">
-            <input type="text" placeholder="email" v-model="email" title="Votre email" class="form-control">
-            <input type="password" placeholder="mot de passe" v-model="password" title="mini 8 caractères + 1 Maj + 1 min + 1 caractères spécial" class="form-control">
-            <input type="password" placeholder="confirmez le mot de passe" v-model="passwordConfirm" class="form-control">
+            <input type="text" placeholder="pseudo" v-model="pseudo" title="Votre Pseudo : 4 lettres et/ou chiffres minimum" class="form-control" required>
+            <input type="text" placeholder="email" v-model="email" title="Votre email" class="form-control" required>
+            <input type="password" placeholder="mot de passe" v-model="password" title="mini 8 caractères + 1 Maj + 1 min + 1 caractères spécial" class="form-control" required>
+            <input type="password" placeholder="confirmez le mot de passe" v-model="passwordConfirm" class="form-control" required>
         </form>
         <button class="btn btn-secondary" @click="signUp()">S'enregistrer</button>
         <div class="formfield__err">{{ msgerr }}</div>

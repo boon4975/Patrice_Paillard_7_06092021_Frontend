@@ -16,7 +16,7 @@
                 </div>
                 <div class="row">
                     <div class="col-3 icon">
-                        <i :id="postId" class="fas fa-comment fa-lg" @click="show = !show, changeColor(postId)"><sup>{{nbcomment}}</sup></i>
+                        <i :id="postId" class="fas fa-comment-alt fa-lg" @click="show = !show, changeColor(postId)"><sup>{{nbcomment}}</sup></i>
                         <i class="fas fa-plus-circle fa-lg" @click="addComment(0, postId)"></i>
                     </div>
                     <div class="col-3 icon">
@@ -120,6 +120,7 @@ export default {
 
 .icon i{
     color: blueviolet;
+    font-size: 24px;
     margin: 0 15px;
         &:hover {
             color: darkgreen;
@@ -127,7 +128,11 @@ export default {
         }
 }
 sup {
-    color: red;
+    color: white;
+    position: relative;
+    font-size: 14px;
+    top: -5px;
+    left: -18px;
 }
 
 </style>
