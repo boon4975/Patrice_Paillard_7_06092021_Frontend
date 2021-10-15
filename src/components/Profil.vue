@@ -1,7 +1,5 @@
 <template>
-    <router-link to="/"><i class="fas fa-house-user fa-lg"></i> </router-link>
-    <hr />
-    <h5>{{ pseudo }} - {{ email }}</h5>
+    <h5 class="my-3">{{ pseudo }} - {{ email }}</h5>
     <p>Changer de mot de passe</p>
     <div class="formfield w-100">
         <form>
@@ -9,9 +7,9 @@
             <input type="password" placeholder="Nouveau mot de passe" v-model="newpassword" title="mini 8 caractères + 1 Maj + 1 min + 1 caractères spécial" class="form-control">
             <input type="password" placeholder="Confirmez le mot de passe" v-model="newconfirm" class="form-control">
         </form>
-        <button class="btn btn-secondary mb-3" @click="changePwd()">Valider</button>
+        <button class="btn btn-primary mb-3" @click="changePwd()">Valider</button>
         <div class="formfield__err my-3">{{ msgerr }}</div>
-        <button class="btn btn-outline-danger" type="button" data-toggle="modal" data-target="#popup">Supprimer le compte</button>
+        <button class="btn btn-danger my-3" type="button" data-toggle="modal" data-target="#popup">Supprimer le compte</button>
     </div>
     <Moderator v-if='moderator' />
     <div id="popup" class="modal">

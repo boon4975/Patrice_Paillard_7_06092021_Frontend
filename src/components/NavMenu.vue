@@ -1,8 +1,8 @@
 <template>
-    <router-link to="/posts"><i class="fas fa-lg fa-book-reader"></i></router-link> |
-    <router-link to="/about"><i class="fas fa-lg fa-camera"></i></router-link> |
-    <router-link to="/profil"><i class="fas fa-lg fa-user-cog" title="Profil utilisateur"></i></router-link> |
-    <router-link to="/login" @click="logout()"><i class="fas fa-lg fa-power-off" title="Déconnexion"></i></router-link>
+    <router-link to="/posts" title="Forum de discution"><i class="fas fa-lg fa-book-reader"></i></router-link> |
+    <router-link to="/about" title="Partagez vos images"><i class="fas fa-lg fa-camera"></i></router-link> |
+    <router-link to="/profil" title="Profil utilisateur"><i class="fas fa-lg fa-user-cog"></i></router-link> |
+    <router-link to="/login" title="Déconnexion" @click="logout()"><i class="fas fa-lg fa-power-off"></i></router-link>
     
 </template>
 

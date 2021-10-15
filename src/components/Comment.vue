@@ -1,10 +1,10 @@
 <template>
-    <div class="container my-1">
-        <div class="row px-1">{{author}} le {{updatedAt}}</div>
+    <div class="container my-1 comment">
+        <div class="row px-1 comment__timestamp"><span class="text-end">{{author}} le {{updatedAt}}</span></div>
         <div class="row  px-1 wrap-text">{{message}}</div>
         <div class="row">
             <div class="col-3 icon" v-if="authorMod || authorId == user_id">
-                <i :id="commentId" class="fas fa-edit fa-lg"  @click="editComment(commentId, postId)"></i>
+                <a href="/editcomment" :id="commentId" class="fas fa-edit fa-lg"  @click="editComment(commentId, postId)" title="éditer le commentaire"></a>
             </div>
         </div>
     </div>
@@ -38,9 +38,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
-    background-color: #0d6efd;
-    color: white;
-}
+
 
 </style>

@@ -3,7 +3,7 @@
     <div class="container">
         <form class="formfield w-100 py-3">
             <label for="Message">Un commentaire ?</label>
-            <textarea name="Message" v-model="message" cols="30" rows="10" class="form-control"></textarea>
+            <textarea id="Message" v-model="message" cols="30" rows="10" class="form-control"></textarea>
         </form>
         <button class="btn btn-primary" v-if="this.comment_info.new" @click="addcomment(this.comment_info.post_id)">Commenter</button>
         <button class="btn btn-primary mx-2" v-if="!this.comment_info.new" @click="updateComment(this.comment_info.id)">Modifier</button>

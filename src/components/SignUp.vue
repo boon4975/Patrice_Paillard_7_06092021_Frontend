@@ -8,7 +8,7 @@
             <input type="password" placeholder="mot de passe" v-model="password" title="mini 8 caractères + 1 Maj + 1 min + 1 caractères spécial" class="form-control" required>
             <input type="password" placeholder="confirmez le mot de passe" v-model="passwordConfirm" class="form-control" required>
         </form>
-        <button class="btn btn-secondary" @click="signUp()">S'enregistrer</button>
+        <button class="btn btn-primary" @click="signUp()">S'enregistrer</button>
         <div class="formfield__err">{{ msgerr }}</div>
         <router-link to='/login'><p>Se connecter</p></router-link>
         

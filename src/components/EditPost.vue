@@ -3,9 +3,9 @@
     <div class="container">
         <form class="formfield w-100 py-3">
             <label for="Titre de la publication">Titre de la publication</label>
-            <input type="text" name="Titre de la publication" v-model="title" class="form-control" maxlength="49">
+            <input type="text" id="Titre de la publication" v-model="title" class="form-control" maxlength="49">
             <label for="Message">Votre texte</label>
-            <textarea name="Message" v-model="message" cols="30" rows="10" class="form-control"></textarea>
+            <textarea id="Message" v-model="message" cols="30" rows="10" class="form-control"></textarea>
         </form>
         <button class="btn btn-primary" v-if="this.postInfo.new" @click="addpost()">Publier</button>
         <button class="btn btn-primary m-2" v-if="!this.postInfo.new" @click="updatePost(this.postInfo.id)">Modifier la publication</button>

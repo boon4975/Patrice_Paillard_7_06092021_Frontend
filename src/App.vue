@@ -3,6 +3,7 @@
     <div id="nav">
       <Banner />
     <router-view />
+    <Banner />
     </div>
   </div>
 </template>
@@ -38,25 +39,23 @@ export default {
 
 
 <style lang="scss">
-$primary: #a8ecff;
-$secondary: #1F3250;
-$tertiary: #d1515a;
-$heigth_banner: 70px;
-
+$primary: #efefef;
+$secondary: #394C6A;
+$tertiary: #9C1C25;
+$quatro: #0d6efd;
+// général
 body {
   max-width: 1440px;
   margin: auto;
 }
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  
+  background-color: $primary;
 }
-
 #nav {
   a {
     font-weight: bold;
@@ -68,10 +67,73 @@ body {
     }
   }
 }
-//style composants de connexion
-h1 {
+h1, h2 {
   margin: 10px 0;
 }
+.btn-primary {
+  background-color: $secondary;
+  border-color: $secondary;
+  box-shadow: 2px 5px 3px $secondary;
+  border-radius: 10px;
+}
+.btn-info {
+  border-radius: 10px;
+  color: white;
+  background-color: $tertiary;
+  border-color: $tertiary;
+}
+
+// posts
+.post {
+  color: $secondary;
+  margin-top: 10px;
+  & > h1 {
+    border-top: 1px solid $secondary;
+    padding-top: 10px;
+    text-shadow: 8px 8px 4px lighten($tertiary, 40);
+  }
+  &__author {
+    border-right: $secondary 1px solid;
+  }
+  &__new {
+    margin: 25px 0;
+  }
+  &__iconcom {
+    background-color: darken($primary, 10);
+    padding: 3px;
+  }
+  &__border {
+        border-radius: 15px;
+        border: 2px solid #394C6A;
+        overflow: hidden;
+    }
+    &__margin {
+        margin: 20px auto;
+    }
+}
+.wrap-text {
+    width: 90%;
+    white-space: pre-line;
+    text-align: left;
+    overflow-wrap: break-word;
+}
+.btn-none {
+  border: none;
+  z-index: -1;
+}
+//commentaires
+.comment {
+  background-color: lighten($secondary, 60);
+  border: 1px dotted $secondary;
+  border-radius: 3px;
+  & i {
+    color: $secondary;
+  }
+  &__timestamp {
+    font-size: 0.7rem;
+  }
+}
+//style composants de connexion
 .formfield {
   margin-top: 20px;
   & input, textarea {
@@ -99,11 +161,5 @@ h1 {
     font-weight: bold;
   }
 }
-.subnav {
-    margin: 15px 0;
-}
-.wrap-text {
-    white-space: pre;
-    text-align: left;
-}
+
 </style>

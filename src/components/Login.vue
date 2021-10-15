@@ -6,9 +6,9 @@
             <input type="text" placeholder="email" v-model="email" class="form-control">
             <input type="password" placeholder="mot de passe" v-model="password" class="form-control">
         </form>
-        <button class="btn btn-secondary" @click="login()">Se connecter</button>
+        <button class="btn btn-primary" @click="login()">Se connecter</button>
         <div class="formfield__err">{{ msgerr }}</div>
-        <router-link to='/signup'><p>S'inscrire</p></router-link>
+        <router-link to='/signup'><button class="btn btn-info my-3">S'inscrire</button></router-link>
     </div>
 </div>
 </template>

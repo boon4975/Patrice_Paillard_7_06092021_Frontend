@@ -1,9 +1,10 @@
 <template>
     <NavMenu />
-    <div class="subnav">
+    <div class="post"><h1>Envie de jaser ?</h1></div>
+    <div class="post__new">
         <button class="btn btn-primary" @click="addPost(0)">Nouvelle publication <i class="fas fa-feather"></i></button>
     </div>
-    <Post
+    <Post class="post"
         v-for="item of posts"
         :key="item.id"
         :title="item.title"
@@ -12,6 +13,7 @@
         :owner="item.user.id"
         :postId="item.id"
         :comments="item.comments"
+        :urlimage="item.url_image"
         />
 <!-- -->
 </template>
