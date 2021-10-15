@@ -20,7 +20,8 @@ export default {
         ...mapState([
             'user_id',
             'moderator',
-            'pseudo'
+            'pseudo',
+            'token'
             ])
   },
   methods:{
@@ -73,8 +74,10 @@ h1, h2 {
 .btn-primary {
   background-color: $secondary;
   border-color: $secondary;
-  box-shadow: 2px 5px 3px $secondary;
   border-radius: 10px;
+  &:hover {
+    box-shadow: 2px 5px 3px $secondary;
+  }
 }
 .btn-info {
   border-radius: 10px;
