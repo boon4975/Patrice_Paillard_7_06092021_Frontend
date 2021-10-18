@@ -70,6 +70,7 @@ body {
 }
 h1, h2 {
   margin: 10px 0;
+  color: $tertiary;
 }
 .btn-primary {
   background-color: $secondary;
