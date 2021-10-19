@@ -47,7 +47,7 @@ export default {
     methods: {
         async getAllPosts(){
             try{
-                let getposts = await axios.get(`http://${env.host}:${env.port}/api/post`,
+                let getposts = await axios.get(`http://${env.host}:${env.port}/api/allpost`,
                     {
                         headers: {Authorization : `Bearer ${this.token}`}
                     },
@@ -68,12 +68,14 @@ export default {
             }
         },
         addPost(value){
-            let postInfo = {
+            let topicInfo = {
                 'id': value,
-                'new': true
+                'new': true,
+                'type':'post',
+                'urlimage':''
             }
-            sessionStorage.setItem('postInfo', JSON.stringify(postInfo))
-            this.$router.push({name:'EditPost'})
+            sessionStorage.setItem('topicInfo', JSON.stringify(topicInfo))
+            this.$router.push({name:'EditTopic'})
         }  
     },
     mounted(){

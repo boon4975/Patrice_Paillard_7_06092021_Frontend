@@ -45,9 +45,9 @@ export default {
             ])
   },
   methods: {
-    async getLastPosts(){
+    async getLastTopic(){
             try{
-                let getposts = await axios.get(`http://${env.host}:${env.port}/api/lastpost`,
+                let getposts = await axios.get(`http://${env.host}:${env.port}/api/lasttopic`,
                     {
                         headers: {Authorization : `Bearer ${this.token}`}
                     },
@@ -72,7 +72,7 @@ export default {
     if(this.user_id == 'none'){
         this.$router.push({name:'Login'})
     }else{
-        this.getLastPosts()
+        this.getLastTopic()
     }
   }
 }

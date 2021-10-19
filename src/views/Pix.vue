@@ -71,11 +71,11 @@ export default {
             let topicInfo = {
                 'id': value,
                 'new': true,
-                'type':'Pix',
+                'type':'pix',
                 'urlimage':''
             }
             sessionStorage.setItem('topicInfo', JSON.stringify(topicInfo))
-            this.$router.push({name:'EditPost'})
+            this.$router.push({name:'EditTopic'})
         }  
     },
     mounted(){

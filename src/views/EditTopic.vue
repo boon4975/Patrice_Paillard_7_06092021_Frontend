@@ -3,14 +3,25 @@
     <div class="container">
         <form class="formfield w-100 py-3">
             <label for="Titre de la publication">Titre de la publication</label>
-            <input type="text" id="Titre de la publication" v-model="title" class="form-control" maxlength="49">
+            <input type="text" id="Titre de la publication" v-model="title" class="form-control" maxlength="49" />
             <label for="Message">Votre texte</label>
             <textarea id="Message" v-model="message" cols="30" rows="10" class="form-control"></textarea>
         </form>
-        <button class="btn btn-primary" v-if="this.postInfo.new" @click="addpost()">Publier</button>
-        <button class="btn btn-primary m-2" v-if="!this.postInfo.new" @click="updatePost(this.postInfo.id)">Modifier la publication</button>
-        <button class="btn btn-outline-danger m-2" v-if="!this.postInfo.new" data-toggle="modal" data-target="#popup">Supprimer</button>
+        <div class="picture my-1"  v-if="this.pix">
+            <div class="picture__cadre">
+                <img :src="this.pix" :alt="title" class="card-img-top" />
+            </div>
+        </div>
+        <div v-if="this.topicInfo.type == 'pix'">
+            <File @upfile="setFile" />
+        </div>
+        <div>
+            <button class="btn btn-primary" v-if="this.topicInfo.new" @click="addTopic(setFormData())">Publier</button>
+            <button class="btn btn-primary m-2" v-if="!this.topicInfo.new" @click="updateTopic(setFormData())">Modifier la publication</button>
+            <button class="btn btn-outline-danger m-2" v-if="!this.topicInfo.new" data-toggle="modal" data-target="#popup">Supprimer</button>
+        </div>
     </div>
+    
     <p class="formfield__err">{{ msgerr }}</p>
     <div id="popup" class="modal">
         <div class="modal-dialog modal-dialog-centered">
@@ -21,7 +32,7 @@
                     <br/>et des commentaires associés /!\
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-outline-danger" data-dismiss="modal" @click="delPost(this.postInfo.id)">Supprimer</button>
+                    <button class="btn btn-outline-danger" data-dismiss="modal" @click="delTopic(this.topicInfo.id)">Supprimer</button>
                     <button class="btn btn-outline-primary" data-dismiss="modal">Annuler</button>
                 </div>
             </div>
@@ -30,14 +41,16 @@
 </template>
 
 <script>
-import NavMenu from '../components/NavMenu.vue'
+import NavMenu from '../components/NavMenu.vue';
+import File from '../components/File.vue';
 import axios from 'axios';
 import env from '../env';
 import {mapState} from 'vuex'
 export default {
-    name: 'EditPost',
+    name: 'EditTopic',
     components: {
-        NavMenu
+        NavMenu,
+        File,
     },
     computed: {
         ...mapState([
@@ -53,21 +66,24 @@ export default {
             title: '',
             message: '',
             msgerr:'',
-            postInfo:''
+            topicInfo:'',
+            file: '',
+            pix:''
         }
     },
     methods: {
-        async getOnePost(id){
+        async getOneTopic(id){
             try{
-                let result = await axios.get(`http://${env.host}:${env.port}/api/post/${id}`,
+                let result = await axios.get(`http://${env.host}:${env.port}/api/topic/${id}`,
                     {
                         headers: {Authorization : `Bearer ${this.token}`}
                     },
                     {}
                 )
                 if(result.status == 200){
-                this.title = result.data.title
-                this.message = result.data.message
+                    this.title = result.data.title
+                    this.message = result.data.message
+                    this.pix = result.data.url_image
                 }else{
                     this.msgerr = 'problème avec la publication'
                 }
@@ -85,21 +101,19 @@ export default {
                 }
             }
         },
-        async addpost(){
-            try{
-                let result = await axios.post(`http://${env.host}:${env.port}/api/post`,
+        async addTopic(formData){
+            try {
+                let result = await axios.post(`http://${env.host}:${env.port}/api/topic`,
+                    formData,
                     {
-                        title: this.title,
-                        message: this.message,
-                        user_id: this.user_id
-                    },
-                    {
-                        headers: {Authorization : `Bearer ${this.token}`}
-                    },
-                    {}
+                        headers: {
+                            Authorization : `Bearer ${this.token}`,
+                            'Content-Type': 'multipart/form-data; boundary'
+                            }
+                    }
                 )
                 if(result.status == 201){
-                    this.$router.push({name: 'Posts'})
+                    this.$router.push({path: `/${this.topicInfo.type}`})
                 }else{
                     this.msgerr = 'problème lors de la publication'
                 }
@@ -117,20 +131,19 @@ export default {
                 }
             }
         },
-        async updatePost(id){
+        async updateTopic(formData){
             try{
-                let result = await axios.put(`http://${env.host}:${env.port}/api/post`,
+                let result = await axios.put(`http://${env.host}:${env.port}/api/topic`,
+                    formData,
                     {
-                        postId: id,
-                        title: this.title,
-                        message: this.message,
-                    },
-                    {
-                        headers: {Authorization : `Bearer ${this.token}`}
-                    },
-                    {})
+                        headers: {
+                            Authorization : `Bearer ${this.token}`,
+                            'Content-Type': 'multipart/form-data; boundary'
+                            }
+                    }
+                )
                 if(result.status == 201){
-                    this.$router.push({name: 'Posts'})
+                    this.$router.push({path: `/${this.topicInfo.type}`})
                 }else{
                     alert('erreur lors update')
                 }
@@ -148,9 +161,9 @@ export default {
                 }
             }
         },
-        async delPost(id){
+        async delTopic(id){
             try{
-                let post = await axios.delete(`http://${env.host}:${env.port}/api/post/${id}`,
+                let post = await axios.delete(`http://${env.host}:${env.port}/api/topic/${id}`,
                 {
                     headers: {Authorization : `Bearer ${this.token}`}
                 },
@@ -159,7 +172,7 @@ export default {
                 if(post.status == 201 ){
                     sessionStorage.removeItem('postInfo');
                     sessionStorage.removeItem('commentInfo');
-                    this.$router.push({name:'Posts'})
+                    this.$router.push({path:`/${this.topicInfo.type}`})
                 }else{
                     this.msgerr = post.data;
                 }
@@ -176,20 +189,39 @@ export default {
                     this.$router.push({name:'Login'})
                 }
             }
-        }
+        },
+        setFile(payload){
+            this.file = payload;
+        },
+        setFormData(){
+            // initialise formData 
+            let formData = new FormData();
+            formData.append('title', this.title);
+            formData.append('message', this.message);
+            formData.append('user_id', this.user_id);
+            formData.append('postId', this.topicInfo.id);
+            formData.append('urlimage', this.topicInfo.urlimage);
+            // ajout du fichier si file n'est pas vide
+            if(this.file != ''){
+                formData.append('file', this.file);
+            }
+            return formData
+        },
+        
+        
     },
     created(){
-        let postInfo = JSON.parse(sessionStorage.getItem('postInfo'))
-        if(postInfo.id > 0){
-            this.getOnePost(postInfo.id)
-            this.postInfo = postInfo
-        }else{
-            this.postInfo = postInfo
-        } 
+        let topicInfo = JSON.parse(sessionStorage.getItem('topicInfo'))
+        if(topicInfo.id > 0){
+            this.getOneTopic(topicInfo.id)
+        }
+        this.topicInfo = topicInfo
     }
 }
 </script>
 
 <style lang="scss" scoped>
-
+.picture__cadre {
+    max-width: 300px;
+}
 </style>

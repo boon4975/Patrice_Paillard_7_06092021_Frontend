@@ -137,7 +137,7 @@ h1, h2 {
     font-size: 0.7rem;
   }
 }
-//style composants de connexion
+// Champ Formulaire
 .formfield {
   margin-top: 20px;
   & input, textarea {
@@ -155,7 +155,7 @@ h1, h2 {
     border-radius: 10px; 
   }
   & button {
-    width: 300px;
+    width: 280px;
     height: 35px;
     cursor: pointer;
   }
@@ -165,5 +165,19 @@ h1, h2 {
     font-weight: bold;
   }
 }
-
+// affichage des images
+.picture {
+    display: flex;
+    justify-content: center;
+    &__cadre {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        & img {
+            width: 100%;
+            height: auto;
+        }
+    }
+}
 </style>

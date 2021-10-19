@@ -23,7 +23,7 @@ const routes = [
     component: () => import('../components/Profil.vue')
   },
   {
-    path: '/posts',
+    path: '/post',
     name: 'Posts',
     component: () => import('../views/Posts.vue')
   },
@@ -36,14 +36,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Pix.vue')
   },
   {
-    path: '/editpost',
-    name: 'EditPost',
-    component: () => import('../components/EditPost.vue')
+    path: '/edittopic',
+    name: 'EditTopic',
+    component: () => import('../views/EditTopic.vue')
   },
   {
     path: '/editcomment',
     name: 'EditComment',
-    component: () => import('../components/EditComment.vue')
+    component: () => import('../views/EditComment.vue')
   }
 ]
 

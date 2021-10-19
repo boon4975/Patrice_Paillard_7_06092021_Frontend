@@ -3,11 +3,11 @@
         <div class="row">
             <div class="col-12 col-md-3 post__author"><h2>{{user.pseudo}}</h2></div>
             <div class="col-12 col-md-9">
-                <div class="picture my-1">
-                <div class="picture__cadre" v-if="urlimage">
-                    <img :src="urlimage" :alt="title" class="card-img-top" />
+                <div class="picture my-1" v-if="urlimage">
+                    <div class="picture__cadre">
+                        <img :src="urlimage" :alt="title" class="card-img-top" />
+                    </div>
                 </div>
-            </div>
                 <div class="row text-start">
                     <h3 class="post">{{title}}</h3>
                 </div>
@@ -22,7 +22,7 @@
                         <a href="/editcomment" class="fas fa-plus-circle fa-lg" @click="addComment(0, postId)" role="link" title="Ajouter mon grain de sel"></a>
                     </div>
                     <div class="col-12 col-md-4 icon">
-                        <a href="/editpost" class="fas fa-edit fa-lg" v-if="moderator || owner == user_id" @click="editPost(postId)" role="link" title="Editer mon post"  aria-hidden="true"></a>
+                        <a href="/edittopic" class="fas fa-edit fa-lg" v-if="moderator || owner == user_id" @click="editPost(postId)" role="link" title="Editer mon post"  aria-hidden="true"></a>
                     </div>
                     <div class="col-6 col-md-2">+1</div>
                     <div class="col-6 col-md-2">-1</div>
@@ -71,12 +71,18 @@ export default {
     props:["title","message","user","id","owner","postId","comments","urlimage"],
     methods:{
         editPost(value){
-            let postInfo = {
-                'id': value,
-                'new': false
+            let typeTopic = 'pix'
+            if(this.urlimage == null){
+                typeTopic = 'post'
             }
-            sessionStorage.setItem('postInfo', JSON.stringify(postInfo))
-            this.$router.push({name:'EditPost'})
+            let topicInfo = {
+                'id': value,
+                'new': false,
+                'urlimage': this.urlimage,
+                'type': typeTopic
+            }
+            sessionStorage.setItem('topicInfo', JSON.stringify(topicInfo))
+            this.$router.push({name:'EditTopic'})
         },
         changeColor(value){
             if(!this.show){
@@ -121,20 +127,8 @@ sup {
     top: -5px;
     left: -18px;
 }
-.picture {
-    display: flex;
-    justify-content: center;
-    &__cadre {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-        max-width: 500px;
-        max-height: 500px;
-        & img {
-            width: 100%;
-            height: auto;
-        }
-    }
+.picture__cadre {
+    max-width: 1000px;
+    max-height: 1000px;
 }
 </style>
