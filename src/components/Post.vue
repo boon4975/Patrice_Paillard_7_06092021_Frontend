@@ -16,7 +16,7 @@
                 </div>
                 <div class="row post__iconcom">
                     <div class="col-6 col-md-2 icon">
-                        <a :href="`#post${postId}`" :id="postId" class="fas fa-comment-alt fa-lg" @click="show = !show, changeColor(postId)" role="link" title="Voir les commentaires"><sup>{{nbcomment}}</sup></a>
+                        <a :href="`#post${postId}`" :id="postId" class="fas fa-comment-alt fa-lg" @click="show = !show, changeColor(postId)" role="link" aria-label="commentaire" title="Voir les commentaires"><sup>{{nbcomment}}</sup></a>
                     </div>
                     <div class="col-6 col-md-2 icon">
                         <a href="/editcomment" class="fas fa-plus-circle fa-lg" @click="addComment(0, postId)" role="link" title="Ajouter mon grain de sel"></a>
@@ -38,6 +38,7 @@
                         :authorMod="item.user.moderator"
                         :commentId="item.id"
                         :postId="postId"
+                        :urlimage="urlimage"
 
                     />
                 </div>
@@ -93,10 +94,15 @@ export default {
             
         },
         addComment(value, postId){
+            let typeTopic = 'pix'
+            if(this.urlimage == null){
+                typeTopic = 'post'
+            }
             let commentInfo = {
                 'id': value,
                 'new': true,
-                'post_id': postId
+                'post_id': postId,
+                'type': typeTopic
             }
             sessionStorage.setItem('commentInfo', JSON.stringify(commentInfo))
             this.$router.push({name:'EditComment'})

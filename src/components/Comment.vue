@@ -15,7 +15,7 @@ import {mapState} from 'vuex'
 
 export default {
     name: 'comments',
-    props: ["message", "updatedAt","authorId","author","authorMod","commentId","postId"],
+    props: ["message", "updatedAt","authorId","author","authorMod","commentId","postId", "urlimage"],
     computed: {
         ...mapState([
             'user_id',
@@ -25,10 +25,15 @@ export default {
     },
     methods: {
         editComment(comId, postId){
+            let typeTopic = 'pix'
+            if(this.urlimage == null){
+                typeTopic = 'post'
+            }
             let commentInfo = {
                 'id': comId,
                 'new': false,
-                'post_id': postId
+                'post_id': postId,
+                'type': typeTopic
             }
             sessionStorage.setItem('commentInfo', JSON.stringify(commentInfo))
             this.$router.push({name:'EditComment'})

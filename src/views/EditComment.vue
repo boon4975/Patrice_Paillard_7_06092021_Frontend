@@ -95,7 +95,7 @@ export default {
                     {}
                 )
                 if(result.status == 201){
-                    this.$router.push({name: 'Posts'})
+                    this.$router.push({path: `/${this.comment_info.type}`})
                 }else{
                     this.msgerr = 'problème lors de la publication'
                 }
@@ -126,7 +126,7 @@ export default {
                     {}
                 )
                 if(result.status == 201){
-                    this.$router.push({name: 'Posts'})
+                    this.$router.push({path: `/${this.comment_info.type}`})
                 }else{
                     alert('erreur lors update')
                 }
