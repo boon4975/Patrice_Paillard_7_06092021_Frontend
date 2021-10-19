@@ -21,7 +21,8 @@ export default {
             'user_id',
             'moderator',
             'pseudo',
-            'token'
+            'token',
+            'url_image'
             ])
   },
   methods:{
@@ -86,6 +87,9 @@ h1, h2 {
   background-color: $tertiary;
   border-color: $tertiary;
 }
+.btn-danger {
+  margin: 50px 0;
+}
 
 // posts
 .post {
@@ -98,6 +102,7 @@ h1, h2 {
   }
   &__author {
     border-right: $secondary 1px solid;
+    border-bottom: $secondary 1px solid;
   }
   &__new {
     margin: 25px 0;

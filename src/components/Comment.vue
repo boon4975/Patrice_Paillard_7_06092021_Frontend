@@ -20,7 +20,8 @@ export default {
         ...mapState([
             'user_id',
             'moderator',
-            'pseudo'
+            'pseudo',
+            'url_image'
             ])
     },
     methods: {

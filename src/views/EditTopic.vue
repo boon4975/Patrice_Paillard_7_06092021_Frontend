@@ -59,6 +59,7 @@ export default {
             'moderator',
             'pseudo',
             'token',
+            'url_image'
             ])
     },
     data(){
@@ -103,7 +104,7 @@ export default {
         },
         async addTopic(formData){
             if(this.file === '' && this.topicInfo.new && this.topicInfo.type == 'pix'){
-                alert('vous avez oublié de sélectionner une image')
+                alert('Veuillez sélectionner une image')
             }else{
                 try {
                     let result = await axios.post(`http://${env.host}:${env.port}/api/topic`,

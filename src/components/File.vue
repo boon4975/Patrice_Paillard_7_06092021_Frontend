@@ -14,7 +14,6 @@
             <span v-if="uploadedFile">file : {{uploadedFile}}</span>
       </div>
   </div>
-<hr />
 </template>
 
 <script>
@@ -29,6 +28,7 @@ export default {
             'moderator',
             'pseudo',
             'token',
+            'url_image'
             ])
     },
     data(){

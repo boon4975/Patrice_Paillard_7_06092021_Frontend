@@ -47,7 +47,8 @@ export default {
             'user_id',
             'moderator',
             'pseudo',
-            'token'
+            'token',
+            'url_image'
             ])
     },
     methods: {

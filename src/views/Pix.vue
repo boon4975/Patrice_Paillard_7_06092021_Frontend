@@ -14,6 +14,7 @@
         :postId="item.id"
         :comments="item.comments"
         :urlimage="item.url_image"
+        :date="item.updatedAt"
         />
 <!-- -->
 </template>
@@ -41,7 +42,8 @@ export default {
             'user_id',
             'moderator',
             'pseudo',
-            'token'
+            'token',
+            'url_image'
             ])
     },
     methods: {

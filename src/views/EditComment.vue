@@ -43,7 +43,8 @@ export default {
             'email',
             'moderator',
             'pseudo',
-            'token'
+            'token',
+            'url_image'
             ])
     },
     data(){

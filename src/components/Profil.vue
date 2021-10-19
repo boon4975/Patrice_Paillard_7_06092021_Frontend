@@ -9,7 +9,16 @@
         </form>
         <button class="btn btn-primary mb-3" @click="changePwd()">Valider</button>
         <div class="formfield__err my-3">{{ msgerr }}</div>
-        <button class="btn btn-danger my-3" type="button" data-toggle="modal" data-target="#popup">Supprimer le compte</button>
+        <div>
+            <div class="picture my-1"  v-if="url_image">
+            <div class="picture__cadre">
+                <img :src="url_image" :alt="pseudo" class="card-img-top" />
+            </div>
+        </div>
+            <File @upfile="setFile" />
+            <button v-if="file != ''" class="btn btn-primary" @click="avatar(setFormData())">upload img profil</button>
+        </div>
+        <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#popup">Supprimer le compte</button>
     </div>
     <Moderator v-if='moderator' />
     <div id="popup" class="modal">
@@ -35,11 +44,13 @@ import axios from 'axios';
 import env from '../env';
 import Moderator from './Moderator.vue'
 import {mapState} from 'vuex'
+import File from './File.vue'
 
 export default {
     name: 'Profil',
     components: {
-        Moderator
+        Moderator,
+        File
     },
     computed: {
         ...mapState([
@@ -47,7 +58,8 @@ export default {
             'email',
             'moderator',
             'pseudo',
-            'token'
+            'token',
+            'url_image'
             ])
     },
     data(){
@@ -55,13 +67,14 @@ export default {
             oldpassword: '',
             newpassword: '',
             newconfirm: '',
-            msgerr:''
+            msgerr:'',
+            file:''
         }
     },
     methods: {
         async changePwd(){
             if(this.newpassword === this.newconfirm){
-                let result = await axios.put(`http://${env.host}:${env.port}/api/auth/profil`,{
+                let result = await axios.put(`http://${env.host}:${env.port}/api/auth/setpwd`,{
                     user_id:this.user_id,
                     token:this.token,
                     oldpassword:this.oldpassword,
@@ -96,6 +109,47 @@ export default {
             }else{
                 this.msgerr = user.data;
             }
+        },
+        async avatar(formData){
+            try{
+                let result = await axios.put(`http://${env.host}:${env.port}/api/auth/avatar`,
+                    formData,
+                    {
+                        headers: {
+                            Authorization : `Bearer ${this.token}`,
+                            'Content-Type': 'multipart/form-data; boundary'
+                            }
+                    }
+                )
+                if(result.status == 201){
+                    sessionStorage.setItem("user-avatar", JSON.stringify(result.data));
+                    this.$store.dispatch('getUserInfo');
+                    this.$router.push({path: '/'})
+                }else{
+                    alert('erreur lors update')
+                }
+            }
+            catch (error) {
+                if(error.response.request.status == 401){
+                   sessionStorage.removeItem('user-info')
+                }
+            }
+            finally {
+                let user = sessionStorage.getItem('user-info')
+                if(!user){
+                    alert('Votre session a expiré. Veuillez vous reconnecter')
+                    this.$router.push({name:'Login'})
+                }
+            }
+        },
+        setFormData(){
+            let formData = new FormData();
+            formData.append('id', this.user_id);
+            formData.append('file', this.file);
+            return formData
+        },
+        setFile(payload){
+            this.file = payload;
         }
     }
 }

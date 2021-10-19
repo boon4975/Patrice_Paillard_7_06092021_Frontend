@@ -1,7 +1,19 @@
 <template>
     <div class="container post__border post__margin" :id="`#post${postId}`">
         <div class="row">
-            <div class="col-12 col-md-3 post__author"><h2>{{user.pseudo}}</h2></div>
+            <div class="col-12 col-md-3 post__author">
+                <div class="row">
+                    <div class="col-12 date">{{date}}</div>
+                    <h2 class="col-6 col-md-12">{{user.pseudo}}</h2>
+                    <div class="col-6 col-md-12 picture" v-if="user.url_image">
+                        <div class="avatar picture__cadre">
+                            <img :src="user.url_image" :alt="user.pseudo" class="card-img-top"/>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+                
             <div class="col-12 col-md-9">
                 <div class="picture my-1" v-if="urlimage">
                     <div class="picture__cadre">
@@ -66,10 +78,11 @@ export default {
         ...mapState([
             'user_id',
             'moderator',
-            'pseudo'
+            'pseudo',
+            'url_image'
             ])
     },
-    props:["title","message","user","id","owner","postId","comments","urlimage"],
+    props:["title","message","user","id","owner","postId","comments","urlimage","date"],
     methods:{
         editPost(value){
             let typeTopic = 'pix'
@@ -133,8 +146,20 @@ sup {
     top: -5px;
     left: -18px;
 }
-.picture__cadre {
-    max-width: 1000px;
-    max-height: 1000px;
+.picture {
+    margin-bottom: 5px;
+    &__cadre {
+        max-width: 1000px;
+        max-height: 1000px;  
+    }
+}
+.avatar {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 10%;
+}
+.date {
+    font-size: 12px;
+    text-align: left;
 }
 </style>
