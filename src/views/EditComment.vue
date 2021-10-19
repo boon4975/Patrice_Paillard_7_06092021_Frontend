@@ -174,7 +174,7 @@ export default {
             this.comment_info = commentInfo
         }else{
             this.comment_info = commentInfo
-        } 
+        }
     }
 }
 </script>

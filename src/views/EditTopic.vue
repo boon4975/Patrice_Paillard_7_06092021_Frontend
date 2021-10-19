@@ -102,32 +102,36 @@ export default {
             }
         },
         async addTopic(formData){
-            try {
-                let result = await axios.post(`http://${env.host}:${env.port}/api/topic`,
-                    formData,
-                    {
-                        headers: {
-                            Authorization : `Bearer ${this.token}`,
-                            'Content-Type': 'multipart/form-data; boundary'
-                            }
+            if(this.file === '' && this.topicInfo.new && this.topicInfo.type == 'pix'){
+                alert('vous avez oublié de sélectionner une image')
+            }else{
+                try {
+                    let result = await axios.post(`http://${env.host}:${env.port}/api/topic`,
+                        formData,
+                        {
+                            headers: {
+                                Authorization : `Bearer ${this.token}`,
+                                'Content-Type': 'multipart/form-data; boundary'
+                                }
+                        }
+                    )
+                    if(result.status == 201){
+                        this.$router.push({path: `/${this.topicInfo.type}`})
+                    }else{
+                        this.msgerr = 'problème lors de la publication'
                     }
-                )
-                if(result.status == 201){
-                    this.$router.push({path: `/${this.topicInfo.type}`})
-                }else{
-                    this.msgerr = 'problème lors de la publication'
                 }
-            }
-            catch (error) {
-                if(error.response.request.status == 401){
-                   sessionStorage.removeItem('user-info')
+                catch (error) {
+                    if(error.response.request.status == 401){
+                    sessionStorage.removeItem('user-info')
+                    }
                 }
-            }
-            finally {
-                let user = sessionStorage.getItem('user-info')
-                if(!user){
-                    alert('Votre session a expiré. Veuillez vous reconnecter')
-                    this.$router.push({name:'Login'})
+                finally {
+                    let user = sessionStorage.getItem('user-info')
+                    if(!user){
+                        alert('Votre session a expiré. Veuillez vous reconnecter')
+                        this.$router.push({name:'Login'})
+                    }
                 }
             }
         },

@@ -16,13 +16,13 @@
                 </div>
                 <div class="row post__iconcom">
                     <div class="col-6 col-md-2 icon">
-                        <a :href="`#post${postId}`" :id="postId" class="fas fa-comment-alt fa-lg" @click="show = !show, changeColor(postId)" role="link" aria-label="commentaire" title="Voir les commentaires"><sup>{{nbcomment}}</sup></a>
+                        <a href="#" :id="postId" class="fas fa-comment-alt fa-lg" @click="show = !show, changeColor(postId)" role="link" aria-label="Voir les commentaires" title="Voir les commentaires"><sup>{{nbcomment}}</sup></a>
                     </div>
                     <div class="col-6 col-md-2 icon">
-                        <a href="/editcomment" class="fas fa-plus-circle fa-lg" @click="addComment(0, postId)" role="link" title="Ajouter mon grain de sel"></a>
+                        <a href="/editcomment" class="fas fa-plus-circle fa-lg" @click="addComment(0, postId)" role="link" aria-label="ajouter un commentaire" title="Ajouter mon grain de sel"></a>
                     </div>
                     <div class="col-12 col-md-4 icon">
-                        <a href="/edittopic" class="fas fa-edit fa-lg" v-if="moderator || owner == user_id" @click="editPost(postId)" role="link" title="Editer mon post"  aria-hidden="true"></a>
+                        <a href="/edittopic" class="fas fa-edit fa-lg" v-if="moderator || owner == user_id" @click="editPost(postId)" role="link" aria-label="editer mon post" title="Editer mon post"></a>
                     </div>
                     <div class="col-6 col-md-2">+1</div>
                     <div class="col-6 col-md-2">-1</div>

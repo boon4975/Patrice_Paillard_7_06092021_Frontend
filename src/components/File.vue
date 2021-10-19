@@ -2,8 +2,8 @@
 <hr />
     <div class="container">
       <div class="formfield w-100 py-3">
-        <label for="file" class="btn btn-info" tabindex="0">Ajout / modifier une image</label>
-            <input type="file" id="file" ref="file" v-on:change="handleFileUpload()" accept=".jpeg, .jpg, .png, .gif"/>
+        <label for="file" class="btn btn-info" tabindex="1">Ajout / modifier une image</label>
+            <input type="file" id="file" ref="file" v-on:change="handleFileUpload()" accept=".jpeg, .jpg, .png, .gif" aria-controls="button"/>
             <br/>
             
             <div class="picture my-1">
@@ -43,10 +43,10 @@ export default {
             let image = document.getElementById("image");
             let types = [ "image/jpg", "image/jpeg", "image/png", "image/gif" ];
             if (types.includes(this.file.type)) {
-                //affiche preview du fichier avant UPLOAD
+        //affiche preview du fichier avant UPLOAD
                 image.src = URL.createObjectURL(this.file)
                 this.uploadedFile = this.file.name;
-                //transfert du formData au composant EditTopic
+        //transfert du formData au composant EditTopic
                 this.$emit('upfile', this.file)
             }
         }
@@ -56,8 +56,8 @@ export default {
 
 <style lang="scss" scoped>
 input {
-    width: 0.1px;
-	height: 0.1px;
+    width: 10px;
+	height: 10px;
 	opacity: 0;
 	overflow: hidden;
 	position: absolute;
