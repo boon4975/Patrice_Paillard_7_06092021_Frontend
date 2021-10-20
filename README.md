@@ -1,7 +1,7 @@
 # FRONTEND
 
 ## Installation du Projet
-Cloner le Frontend
+Cloner dans un dossier FRONTEND à la racine du dossier Projet
 Exécuter 
     npm install
 
