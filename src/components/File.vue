@@ -52,8 +52,9 @@ export default {
             }else{
                 if(this.file.size > 1000000){
                     alert('votre image ne doit pas dépasser 1 Mo')
+                }else{
+                    alert('Formats image autorisés: .jpg, .jpeg, .png, . gif')
                 }
-                alert('Formats image autorisés: .jpg, .jpeg, .png, . gif')
             }
         }
     }

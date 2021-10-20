@@ -9,7 +9,7 @@
                 <div class="modal-body">
                     <input class="form-control my-1 text-center my-2" id="searchInput" type="text" placeholder="Recherche par email ..." @keyup.enter="capteInput(this.get)">
                     <p class="login__err">{{ msgerr }}</p>
-                    <div id="modo" class="d-none" >
+                    <div id="modo" class="d-none">
                         <p>Modifier le statut de <b>{{ otherPseudo }}</b></p>
                         <p>Email : <b>{{ otherEmail }}</b></p>
                         <p v-if="otherModerator">Modérateur <input type="checkbox" checked @click="updateModerator(put)" name="cb_modo" /></p>
@@ -55,12 +55,12 @@ export default {
         // capture l'email a recheché
         capteInput(get){
             this.searchUser = document.getElementById('searchInput').value;
+            this.msgerr = '';
             this.updateModerator(get);
-            document.getElementById("modo").classList.remove("d-none");
         },
         // modifie le statut Moderateur (true ou false)
         async updateModerator(param){
-            let cb_Moderator = document.getElementsByName('cb_modo')[0].checked
+            let cb_Moderator = document.getElementsByName('cb_modo')[0].checked // récupère la valeur de le checkbox Moderateur
             let result = await axios.put(`http://${env.host}:${env.port}/api/auth/profil/moderator`,{
                 email: this.searchUser,
                 moderator: cb_Moderator,
@@ -73,11 +73,13 @@ export default {
                 this.otherModerator = result.data.moderator
                 this.otherPseudo = result.data.pseudo
                 this.otherEmail = result.data.email
+                document.getElementById("modo").classList.remove("d-none");
             }else if(result.status == 200 && param == 'put' ){
                 console.log('modification du statut effectué')
             }
             else{
                 this.msgerr = result.data.message
+                document.getElementById("modo").classList.add("d-none");
             }
         },
         //reset des variables pour une nouvelle recherche d'email

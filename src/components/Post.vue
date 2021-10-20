@@ -47,7 +47,6 @@
                         :updatedAt="item.updatedAt"
                         :authorId="item.userId"
                         :author="item.user.pseudo"
-                        :authorMod="item.user.moderator"
                         :commentId="item.id"
                         :postId="postId"
                         :urlimage="urlimage"

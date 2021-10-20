@@ -154,7 +154,7 @@ export default {
                 if(comment.status == 201 ){
                     sessionStorage.removeItem('postInfo');
                     sessionStorage.removeItem('commentInfo');
-                    this.$router.push({name:'Posts'})
+                    this.$router.push({path: `/${this.comment_info.type}`})
                 }else{
                     this.msgerr = comment.data;
                 }
