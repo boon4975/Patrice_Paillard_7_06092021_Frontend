@@ -195,6 +195,7 @@ export default {
                 }
             }
         },
+        // recupère le fichier uploadé depuis <File />
         setFile(payload){
             this.file = payload;
         },

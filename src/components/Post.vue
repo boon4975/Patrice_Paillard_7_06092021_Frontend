@@ -98,6 +98,7 @@ export default {
             sessionStorage.setItem('topicInfo', JSON.stringify(topicInfo))
             this.$router.push({name:'EditTopic'})
         },
+        // change couleur de l'icone des commentaires lors du toggle du <Comment />
         changeColor(value){
             if(!this.show){
                 document.getElementById(value).style.color = '#9C1C25'

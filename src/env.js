@@ -1,5 +1,5 @@
 const env = {
-    host: '192.168.1.21',
+    host: 'localhost',
     port: 3000
 }
 

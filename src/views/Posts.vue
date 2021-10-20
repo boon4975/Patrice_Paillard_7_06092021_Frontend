@@ -80,6 +80,7 @@ export default {
             this.$router.push({name:'EditTopic'})
         }  
     },
+    // récupère la list des POSTS
     mounted(){
         this.getAllPosts()
     }

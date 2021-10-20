@@ -52,11 +52,13 @@ export default {
             ])
     },
     methods: {
+        // capture l'email a recheché
         capteInput(get){
             this.searchUser = document.getElementById('searchInput').value;
             this.updateModerator(get);
             document.getElementById("modo").classList.remove("d-none");
         },
+        // modifie le statut Moderateur (true ou false)
         async updateModerator(param){
             let cb_Moderator = document.getElementsByName('cb_modo')[0].checked
             let result = await axios.put(`http://${env.host}:${env.port}/api/auth/profil/moderator`,{
@@ -78,6 +80,7 @@ export default {
                 this.msgerr = result.data.message
             }
         },
+        //reset des variables pour une nouvelle recherche d'email
         clearInput(){
             document.getElementById('searchInput').value ='';
             document.getElementById("modo").classList.add("d-none");

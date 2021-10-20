@@ -1,24 +1,15 @@
-# frontend
+# FRONTEND
 
-## Project setup
-```
-npm install
-```
+## Installation du Projet
+Cloner le Frontend
+Exécuter 
+    npm install
 
-### Compiles and hot-reloads for development
-```
+### Lancement serveur de Dev
+
 npm run serve
-```
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
+### Personnaliser l'environnement
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+dans le fichier env.js, personnalisez le nom d'hote (host)

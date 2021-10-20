@@ -31,7 +31,7 @@
                     <br/>tous vos commentaires /!\
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-outline-danger" data-dismiss="modal" @click="deluser()">Supprimer</button>
+                    <button class="btn btn-outline-danger" data-dismiss="modal" @click="delAccount()">Supprimer</button>
                     <button class="btn btn-outline-primary" data-dismiss="modal">Annuler</button>
                 </div>
             </div>
@@ -98,7 +98,7 @@ export default {
                 this.msgerr = 'les mots de passe ne sont pas identiques'
             }
         },
-        async deluser(){
+        async delAccount(){
             let user = await axios.delete(`http://${env.host}:${env.port}/api/auth/profil/${this.user_id}`,
                 {
                     headers: {Authorization : `Bearer ${this.token}`}
@@ -110,6 +110,7 @@ export default {
                 this.msgerr = user.data;
             }
         },
+        // changement de l'image de l'Avatar
         async avatar(formData){
             try{
                 let result = await axios.put(`http://${env.host}:${env.port}/api/auth/avatar`,
@@ -142,12 +143,14 @@ export default {
                 }
             }
         },
+        // met en forme les données pour la requete au serveur
         setFormData(){
             let formData = new FormData();
             formData.append('id', this.user_id);
             formData.append('file', this.file);
             return formData
         },
+        // recupère le fichier uploadé depuis <File />
         setFile(payload){
             this.file = payload;
         }

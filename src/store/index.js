@@ -1,5 +1,6 @@
 import { createStore } from 'vuex'
 
+// contient les informations de l'utilisateur connecté
 export default createStore({
   state: {
     user_id: 'none',
