@@ -12,4 +12,4 @@ npm run serve
 
 ### Personnaliser l'environnement
 
-dans le fichier env.js, personnalisez le nom d'hote (host)
+dans le fichier src/env.js, personnalisez le nom d'hote (host)

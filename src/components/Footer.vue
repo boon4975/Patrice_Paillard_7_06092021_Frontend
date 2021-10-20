@@ -2,7 +2,7 @@
     <div class="footer">
         <div class="row g-0">
             <div class="col-3">
-                <img alt="logo Groupomania" src="../assets/images/logo/icon-above-font.png" class="footer__logo"/>
+                <img alt="logo Groupomania" src="../assets/logo_footer.png" class="footer__logo"/>
                 <a href="www.groupomania.com" class="footer__a">www.groupomania.com</a>
             </div>
             <div class="col-6">
