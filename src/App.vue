@@ -3,18 +3,20 @@
     <div id="nav">
       <Banner />
     <router-view />
-    <Banner />
+    <Footer />
     </div>
   </div>
 </template>
 
 <script>
 import Banner from "@/components/Banner.vue";
-import {mapState} from 'vuex'
+import Footer from "@/components/Footer.vue";
+import {mapState} from 'vuex';
 
 export default {
   components: {
     Banner,
+    Footer
   },
   computed: {
         ...mapState([

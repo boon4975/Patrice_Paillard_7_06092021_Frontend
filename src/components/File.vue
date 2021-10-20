@@ -41,13 +41,19 @@ export default {
         handleFileUpload(){
             this.file = this.$refs.file.files[0];
             let image = document.getElementById("image");
+        // limit formats autorisés et taille à 1Mo
             let types = [ "image/jpg", "image/jpeg", "image/png", "image/gif" ];
-            if (types.includes(this.file.type)) {
+            if (types.includes(this.file.type) && this.file.size < 1000000) {
         //affiche preview du fichier avant UPLOAD
                 image.src = URL.createObjectURL(this.file)
                 this.uploadedFile = this.file.name;
         //transfert du formData au composant EditTopic
                 this.$emit('upfile', this.file)
+            }else{
+                if(this.file.size > 1000000){
+                    alert('votre image ne doit pas dépasser 1 Mo')
+                }
+                alert('Formats image autorisés: .jpg, .jpeg, .png, . gif')
             }
         }
     }

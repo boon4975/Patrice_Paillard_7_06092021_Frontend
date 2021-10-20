@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <NavMenu />
+    <div class="post"><h1>Quoi de neuf ?</h1></div>
   </div>
     <Post class="post"
           v-for="item of posts"

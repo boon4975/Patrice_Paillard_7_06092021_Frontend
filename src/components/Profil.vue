@@ -16,7 +16,7 @@
             </div>
         </div>
             <File @upfile="setFile" />
-            <button v-if="file != ''" class="btn btn-primary" @click="avatar(setFormData())">upload img profil</button>
+            <button v-if="file != ''" class="btn btn-primary" @click="avatar(setFormData())">changer votre Avatar</button>
         </div>
         <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#popup">Supprimer le compte</button>
     </div>
@@ -160,5 +160,8 @@ export default {
     margin: 0 auto;
     padding: 0;
     line-height: 1;
+}
+.picture__cadre {
+    max-width: 300px;
 }
 </style>
