@@ -112,6 +112,11 @@ h1, h2 {
   &__iconcom {
     background-color: darken($primary, 10);
     padding: 3px;
+    & button {
+      border: none;
+      background-color: transparent;
+      color: $secondary;
+    }
   }
   &__border {
         border-radius: 15px;
@@ -137,8 +142,10 @@ h1, h2 {
   background-color: lighten($secondary, 60);
   border: 1px dotted $secondary;
   border-radius: 3px;
-  & i {
+  & button {
     color: $secondary;
+    border: none;
+    background-color: transparent;
   }
   &__timestamp {
     font-size: 0.7rem;
@@ -187,4 +194,5 @@ h1, h2 {
         }
     }
 }
+
 </style>

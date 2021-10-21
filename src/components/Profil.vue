@@ -146,7 +146,7 @@ export default {
         // met en forme les données pour la requete au serveur
         setFormData(){
             let formData = new FormData();
-            formData.append('id', this.user_id);
+            formData.append('user_id', this.user_id);
             formData.append('file', this.file);
             return formData
         },
