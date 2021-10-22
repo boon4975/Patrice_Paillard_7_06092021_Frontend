@@ -5,8 +5,10 @@
         <form>
             <input type="text" placeholder="pseudo" v-model="pseudo" title="Votre Pseudo : 4 lettres et/ou chiffres minimum" class="form-control" required>
             <input type="text" placeholder="email" v-model="email" title="Votre email" class="form-control" required>
-            <input type="password" placeholder="mot de passe" v-model="password" title="mini 8 caractères + 1 Maj + 1 min + 1 caractères spécial" class="form-control" required>
-            <input type="password" placeholder="confirmez le mot de passe" v-model="passwordConfirm" class="form-control" required>
+            <SetPassword 
+                @password="getpwd"
+                @confirmpwd="getconfirmpwd"
+            />
         </form>
         <button class="btn btn-primary" @click="signUp()">S'enregistrer</button>
         <div class="formfield__err">{{ msgerr }}</div>
@@ -19,10 +21,11 @@
 <script>
 import axios from 'axios';
 import env from '../env';
+import SetPassword from './SetPassword.vue'
 export default {
     name: 'SignUp',
     components: {
-        
+        SetPassword
     },
     data(){
         return {
@@ -58,6 +61,12 @@ export default {
             }else{
                 this.msgerr = 'les mots de passe ne sont pas identiques'
             }
+        },
+        getpwd(payload){
+            this.password = payload
+        },
+        getconfirmpwd(payload){
+            this.passwordConfirm = payload
         }
     }
 }

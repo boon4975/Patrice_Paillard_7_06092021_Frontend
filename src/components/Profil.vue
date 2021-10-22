@@ -4,9 +4,11 @@
     <div class="formfield w-100">
         <form>
             <input type="password" placeholder="Mot de passe actuel" v-model="oldpassword" class="form-control">
-            <input type="password" placeholder="Nouveau mot de passe" v-model="newpassword" title="mini 8 caractères + 1 Maj + 1 min + 1 caractères spécial" class="form-control">
-            <input type="password" placeholder="Confirmez le mot de passe" v-model="newconfirm" class="form-control">
-        </form>
+            <SetPassword 
+                @password="getpwd"
+                @confirmpwd="getconfirmpwd"
+            />
+        </form>    
         <button class="btn btn-primary mb-3" @click="changePwd()">Valider</button>
         <div class="formfield__err my-3">{{ msgerr }}</div>
         <div>
@@ -40,17 +42,20 @@
 </template>
 
 <script>
+
 import axios from 'axios';
 import env from '../env';
 import Moderator from './Moderator.vue'
 import {mapState} from 'vuex'
 import File from './File.vue'
+import SetPassword from './SetPassword.vue'
 
 export default {
     name: 'Profil',
     components: {
         Moderator,
-        File
+        File,
+        SetPassword
     },
     computed: {
         ...mapState([
@@ -153,6 +158,12 @@ export default {
         // recupère le fichier uploadé depuis <File />
         setFile(payload){
             this.file = payload;
+        },
+        getpwd(payload){
+            this.newpassword = payload
+        },
+        getconfirmpwd(payload){
+            this.newconfirm = payload
         }
     }
 }
