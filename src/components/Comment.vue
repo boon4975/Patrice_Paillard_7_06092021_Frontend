@@ -3,8 +3,8 @@
         <div class="row px-1 comment__timestamp"><span class="text-end">{{author}} le {{updatedAt}}</span></div>
         <div class="row  px-1 wrap-text">{{message}}</div>
         <div class="row">
-            <div class="col-3 icon" v-if="moderator || authorId == user_id">
-                <a href="/editcomment" :id="commentId" class="fas fa-edit fa-lg"  @click="editComment(commentId, postId)" title="éditer le commentaire"></a>
+            <div class="col-3" v-if="moderator || authorId == user_id">
+                <button :id="commentId" class="fas fa-edit fa-lg" role="link" @click="editComment(commentId, postId)" title="éditer le commentaire"></button>
             </div>
         </div>
     </div>

@@ -28,16 +28,16 @@
                 </div>
                 <div class="row post__iconcom">
                     <div class="col-6 col-md-2 icon">
-                        <a href="#" :id="postId" class="fas fa-comment-alt fa-lg" @click="show = !show, changeColor(postId)" role="link" aria-label="Voir les commentaires" title="Voir les commentaires"><sup>{{nbcomment}}</sup></a>
+                        <button :id="postId" class="fas fa-comment-alt fa-lg" @click="show = !show, changeColor(postId)" role="link" aria-label="Voir les commentaires" title="Voir les commentaires"><sup>{{nbcomment}}</sup></button>
                     </div>
                     <div class="col-6 col-md-2 icon">
-                        <a href="/editcomment" class="fas fa-plus-circle fa-lg" @click="addComment(0, postId)" role="link" aria-label="ajouter un commentaire" title="Ajouter mon grain de sel"></a>
+                        <button class="fas fa-plus-circle fa-lg" @click="addComment(0, postId)" role="link" aria-label="ajouter un commentaire" title="Ajouter mon grain de sel"></button>
                     </div>
                     <div class="col-12 col-md-4 icon">
-                        <a href="/edittopic" class="fas fa-edit fa-lg" v-if="moderator || owner == user_id" @click="editPost(postId)" role="link" aria-label="editer mon post" title="Editer mon post"></a>
+                        <button class="fas fa-edit fa-lg" v-if="moderator || owner == user_id" @click="editPost(postId)" role="link" aria-label="editer mon post" title="Editer mon post"></button>
                     </div>
-                    <div class="col-6 col-md-2">+1</div>
-                    <div class="col-6 col-md-2">-1</div>
+                    <div class="col-6 col-md-2"></div>
+                    <div class="col-6 col-md-2"></div>
                 </div>
                 <div class="row my-1" v-if="show">
                     <Comment
@@ -127,6 +127,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@mixin media-mobile {
+    @media screen AND (max-width: 768px) {
+        &{ @content;}
+    }
+}
 a {
     text-decoration: none;
 }
@@ -157,9 +162,14 @@ sup {
     max-width: 150px;
     max-height: 150px;
     border-radius: 10%;
+    @include media-mobile {
+        max-height: 50px;
+        max-width: 50px;
+    }
 }
 .date {
     font-size: 12px;
     text-align: left;
 }
+
 </style>

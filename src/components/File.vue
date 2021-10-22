@@ -2,8 +2,8 @@
 <hr />
     <div class="container">
       <div class="formfield w-100 py-3">
-        <label for="file" class="btn btn-info" tabindex="1">Ajout / modifier une image</label>
-            <input type="file" id="file" ref="file" v-on:change="handleFileUpload()" accept=".jpeg, .jpg, .png, .gif" aria-controls="button"/>
+        <label for="file" class="btn btn-info">Ajout / modifier une image</label>
+            <input type="file" id="file" ref="file" v-on:change="handleFileUpload()" accept=".jpeg, .jpg, .png, .gif" />
             <br/>
             
             <div class="picture my-1">
