@@ -139,6 +139,12 @@ export default {
                 if(error.response.request.status == 401){
                    sessionStorage.removeItem('user-info')
                 }
+                if(error.response.request.status == 500){
+                    this.msgerr = 'Fichier incorrect'
+                }
+                if(error.response.request.status == 501){
+                    this.msgerr = 'Erreur server'
+                }
             }
             finally {
                 let user = sessionStorage.getItem('user-info')
