@@ -86,7 +86,7 @@ export default {
             try{
                 let result = await axios.post(`http://${env.host}:${env.port}/api/comment`,
                     {
-                        post_id: id,
+                        topic_id: id,
                         message: this.message,
                         user_id: this.user_id
                     },
@@ -120,6 +120,7 @@ export default {
                     {
                         comment_id: id,
                         message: this.message,
+                        topic_id: this.comment_info.post_id
                     },
                     {
                         headers: {Authorization : `Bearer ${this.token}`}

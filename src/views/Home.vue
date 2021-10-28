@@ -13,7 +13,7 @@
           :postId="item.id"
           :comments="item.comments"
           :urlimage="item.url_image"
-          :date="item.updatedAt"
+          :date="item.createdAt"
           />
 </template>
 

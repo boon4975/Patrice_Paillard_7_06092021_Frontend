@@ -59,7 +59,6 @@ export default {
         },
         getKeyCode(e) {
             this.keystroke = e.keyCode;
-            console.log(this.keystroke)
         },
         validRegEx(value){
             //init des RegEx
